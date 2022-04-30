@@ -1,71 +1,87 @@
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<tytle></tytle>
-<script>
-function start() {
-	try{
-		var first = localStorage.getItem('first');
-  		table0 = document.createElement('table');  
-	 }catch{
-  		localStorage.setItem('first', 'False');
-  		window.location.href = 'setting.html';
- 	}		
+<meta charset="UTF-8">
+<title>smartbuyer</title>
+<script type="text/javascript">
+function start(){
+	if (localStorage.getItem('first')=="False"){
+	}else {
+		localStorage.setItem('first',"False");
+		var newdict = {"manager":["ouprogramming",["C","N","S"],{"豚肉":[100,120,130],"牛肉":[100,120,130]}]};
+		localStorage.setItem('userlist', JSON.stringify(newdict));
+ 	}
+}
+function login(){
+	var user = document.getElementById("username");
+	var pass = document.getElementById("password");
+	var username = user.value;
+	var password = pass.value;
+	var userlist = JSON.parse(localStorage.getItem('userlist'));
+	var namelist = Object.keys(userlist);
+	if(namelist.indexOf(username) !== -1){
+		if(userlist[username][0]==password){
+			localStorage.setItem('currentuser', username);
+			window.location.href = 'compare.html';
+		}else{
+			alert("ログインに失敗しました。\nもしくは既に使われているユーザーネームです。");
+		}
+	}else{
+		userlist[username] = [password,[],{}];
+		alert("新規登録に成功しました。");
+		localStorage.setItem('currentuser', username);
+		localStorage.setItem('userlist', JSON.stringify(userlist));
+		window.location.href = 'setting.html';
+
 	}
+}
 </script>
 <style>
 .body{
 	margin:0;
-	}
-
+}
 .tablestyle1{
 	height:20vh;
 	width:100vw;
-	padding: 0em;
+	padding:0em;
 	table-layout: fixed;
-	}
+}
 .tablestyle2{
 	height:80vh;
 	width:100vw;
-	padding: 0em;
-	}
+	padding:0em;
+}
 .tdstyle1{
 	height:100%;
 	width:50%;
-	padding: 0em;
-	}
+	padding:0em;
+}
 .tdstyle2{
 	height:100%;
 	width:(50/3)%;
-	padding: 0em;
-	}
+	padding:0em;
+}
 .textboxstyle{
 	display: block;
-	height:100%;
+	height:20%;
 	width:100%;
 	padding: 0em 0em;
 	font-size:400%;
-	}
-.boxstyle{
+}
+.buttonstyle{
 	display: block;
-	height:100%;
+	height:20%;
 	width:100%;
 	padding: 0em 0em;
 	font-size:400%;
-	}
+}
 </style>
 </head>
 <body onLoad="start();">
 <header>
-<table class="tablestyle1">
-<tr>
-<td class="tdstyle1"><input type="text" class="textboxstyle"></input></td>
-<td class="tdstyle2"><input type="text" class="textboxstyle"></input></td>
-<td class="tdstyle2"><input type="text" class="textboxstyle"></input></td>
-<td class="tdstyle2"><div class="boxstyle">a</div></td>
-</tr>
-</table>
 </header>
-<iframe src="table.html" class="tablestyle2">
-</iframe>
+<input type="text" class="textboxstyle" id="username"></input>
+<input type="text" class="textboxstyle" id="password"></input>
+<button type="button" class="buttonstyle" onclick="login();">ログイン/新規登録</button>
 </body>
 </html>

@@ -1,15 +1,76 @@
 <html>
 <head>
-<tytle></tytle>
+<title>smartbuyer</title>
 <script>
+function start(){
+
+
+}
+function register(){
+	var shoplist = [];
+	for (var i = 0; i < 3; i++) {
+		var shop = document.getElementById("shop"+String(i+1));
+		var shopname = shop.value;
+		shoplist[i] = shopname;
+	}
+	var username = localStorage.getItem('currentuser');
+	var userlist = JSON.parse(localStorage.getItem('userlist'));
+	userlist[username][1]=shoplist;
+	alert(JSON.stringify(userlist))
+	localStorage.setItem('userlist', JSON.stringify(userlist));
+}
+
 </script>
 <style>
+.body{
+	margin:0;
+}
+.tablestyle1{
+	height:20vh;
+	width:100vw;
+	padding:0em;
+	table-layout: fixed;
+}
+.tablestyle2{
+	height:80vh;
+	width:100vw;
+	padding:0em;
+}
+.tdstyle1{
+	height:100%;
+	width:50%;
+	padding:0em;
+}
+.tdstyle2{
+	height:100%;
+	width:(50/3)%;
+	padding:0em;
+}
+.textboxstyle{
+	height:20%;
+	width:80%;
+	padding: 0em 0em;
+	font-size:400%;
+	display: inline-block;
+}
+.buttonstyle{
+	display: block;
+	height:20%;
+	width:100%;
+	padding: 0em 0em;
+	font-size:400%;
+}
+.shopnum{
+	width:20%;
+	display: inline-block;
+}
 </style>
 </head>
 <body>
-<header>
-</header>
-<>
-
+<p>店舗登録</p>
+<div><p class="shopnum">1</p><input type="text" class="textboxstyle" id="shop1"></input></div>
+<div><p class="shopnum">2</p><input type="text" class="textboxstyle" id="shop2"></input></div>
+<div><p class="shopnum">3</p><input type="text" class="textboxstyle" id="shop3"></input></div>
+<button type="button" onclick="register();">登録</button>
 </body>
 </html>

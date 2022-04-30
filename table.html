@@ -2,14 +2,116 @@
 <head>
 <tytle></tytle>
 <script>
+function btn(){
+  var td = document.getElementsByTagName('td');
+  for (var i=0; i < td.length; i++) {
+    td[i].addEventListener('click', function() {
+      alert(this.textContent);
+      alert(this.id);
+      var elemid=this.id
+      if(this.id[0]=="-"){
+        window.parent.compare1(elemid.substr(1));
+      }else{
+        window.parent.compare2(elemid);
+      }
+    })
+  }
+}
+
+function mktable(){
+  var table = document.createElement('table');
+  var userlist = JSON.parse(localStorage.getItem('userlist'));
+  var username = localStorage.getItem('currentuser');
+  var grocerydict = userlist[username][2];
+  var grocerylist = Object.keys(grocerydict);
+  var shoplist0 = userlist[username][1];
+  var shoplist1 = shoplist0.filter(function( item ) {
+    return item !== "";
+  });
+  var nos = shoplist1.length;
+  var width1 = toString(50/nos) + "%";
+  table.setAttribute("cellspacing","0");
+  table.setAttribute("cellpadding","0");
+  var th0 = document.createElement('th');
+  th0.textContent = "品名";
+  th0.setAttribute("class","th0style");
+  var tr0 = document.createElement('tr');
+  tr0.appendChild(th0);
+
+  for(var j=0; j< nos; j++){
+    var th = document.createElement('th');
+    th.textContent = shoplist1[j];
+    th.setAttribute("class","th1style");
+    th.setAttribute("width",width1);
+    tr0.appendChild(th);
+  }
+
+  table.appendChild(tr0);
+  alert(grocerylist);
+  for (var i = 0; i< grocerylist.length; i++){
+    var tr = document.createElement('tr');
+    var td0 = document.createElement('td');
+    td0.textContent = grocerylist[i];
+    td0.setAttribute("class","td0style");
+    td0.setAttribute("id","-"+grocerylist[i]);
+    if (i % 2 ===0){
+      tr.setAttribute("bgcolor","#ffffff");
+    }else{
+      tr.setAttribute("bgcolor","#dfdfdf");
+    }
+    tr.appendChild(td0);
+    for(var j=0; j< nos; j++){
+      var td = document.createElement('td');
+      td.setAttribute("class","td1style");
+      td.setAttribute("width",width1);
+      td.setAttribute("id",(j).toString()+grocerylist[i]);
+      td.textContent = grocerydict[grocerylist[i]][j];
+      tr.appendChild(td);
+    }
+    table.appendChild(tr);
+  }
+  table.setAttribute("class","tablestyle")
+  document.getElementById('maintable').appendChild(table);
+}
 </script>
 <style>
+*{
+  margin:0;
+  padding:0;
+}
+.body{
+  	margin:0;
+}
+.tablestyle{
+  width:100%;
+  border: 2px #404040 solid;
+}
+.th0style{
+  width:50%;
+  height:10vh;
+  border: 1px #404040 solid;
+  background-color: #404040;
+    color:#ffffff;
+}
+.th1style{
+  height:10vh;
+  border: 1px #404040 solid;
+  background-color: #404040;
+  color:#ffffff;
+}
+.td0style{
+  width:50%;
+  height:10vh;
+  border: 1px #404040 solid;
+}
+.td1style{
+  height:10vh;
+  border: 1px #404040 solid;
+}
 </style>
 </head>
-<body>
-<header>
-</header>
-<>
-
+<body onload="mktable(); btn();">
+<div id="maintable">
+</div>
 </body>
 </html>
