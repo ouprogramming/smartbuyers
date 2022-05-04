@@ -1,69 +1,236 @@
-
-<html>
+<!DOCTYPE html>
+<html lang="ja">
 <head>
-<tytle>compare</tytle>
 <meta charset="UTF-8">
-<script>
-function compare1(name){
-	var elem1 = document.getElementById("name");
-	elem1.value = name;
+<title>compare</title>
 
+<script type="text/javascript">
+//basenum設定
+function setting(shop,name){
+	removeregister();
+	removeinput();
+	userlist = JSON.parse(localStorage.getItem('userlist'));
+  username = localStorage.getItem('currentuser');
+	shoplist0 = userlist[username][1];
+  nos0 = shoplist1.length;
+  shoplist1 = shoplist0.filter(function( item ) {
+    return item !== "";
+  });
+  nos1 = shoplist1.length;
+	inputvalue = 0;
+	inputnum = 1;
+	var elemname = document.getElementById("name");
+	elemname.value = name;
+	currentname = name;
+	currentshop = shop;
+	var elemvalue = document.createElement("input");
+	var elemnum = document.createElement("input");
+	elemvalue.setAttribute("type","number");
+	elemnum.setAttribute("type","number");
+	elemvalue.setAttribute("class","textboxstyle");
+	elemnum.setAttribute("class","textboxstyle");
+	elemvalue.setAttribute("id","value");
+	elemnum.setAttribute("id","num");
+	elemvalue.setAttribute("onkeyup","numCheck()");
+	elemnum.setAttribute("onkeyup","numCheck()");
+	elemvaluecell = document.getElementById("valuecell");
+	elemnumcell = document.getElementById("numcell");
+	elemvaluecell.appendChild(elemvalue);
+	elemnumcell.appendChild(elemnum);
 }
+
+function numCheck(){
+	inputvalue = Number(document.getElement("value").value);
+	inputnum = Number(document.getElement("num").value);
+	if (inputvalue == 0){
+		;
+	}else if (inputnum == 0) {
+		;
+	}else{
+		basenum0 = userlist[username][2][currentname][0];
+		previousvaluelist = userlist[username][2][currentname];
+		comparablevalue=(inputvalue*basenum0)/inputnum;
+		var TFlist = 0;
+		for(var j=0;j<shoplist0.length;j++){
+			elemcell = document.getElementById(j.toString()+currentname);
+			if(comparablevalue < previous[j+1]){
+				elemcell.style.backgroundColor = "#9BE585";
+				elemcell.style.color = "#38742A";
+				TFcount += 0
+				if(currentshop==j){
+					var elemupdatebtn = document.createElement("input");
+					updatebtn.setAttribute("class","updatebtn");
+					updatebtn.setAttribute("type","button");
+					updatebtn.setAttribute("onclick","update()");
+					var elemresult = document.getElementById("result");
+					elemresult.appendChild(elemupdatebtn);
+				}else{
+					;
+				}
+			}else{
+				elemcell.style.backgroundColor = "#EDD1E4";
+				elemcell.style.color = "#DA3B26";
+				TFcount += 1;
+			}
+		}
+		elemresult = document.getElementById("result");
+		if(TFcount==0){
+			elemresult.style.backgroundColor = "#9BE585";
+			elemresult.style.color = "#38742A";
+			elemresult.value = "○";
+		}else if(TFcount > 0 && TFcount < nos){
+			elemresult.style.backgroundColor = "#F7F1AC";
+			elemresult.style.color = "#F27200";
+			elemresult.value = "△";
+		}else{
+			elemresult.style.backgroundColor = "#EDD1E4";
+			elemresult.style.color = "#DA3B26";
+			elemresult.value = "×";
+		}
+	}
+}
+
+function update(){
+	userlist = JSON.parse(localStorage.getItem('userlist'));
+  username = localStorage.getItem('currentuser');
+	userlist[username][2][currentname][currentshop] = comparablevalue;
+	localStorage.setItem('userlist', JSON.stringify(userlist));
+}
+
+function nameCheck(){
+	removeinput();
+	removeregister();
+	userlist = JSON.parse(localStorage.getItem('userlist'));
+  username = localStorage.getItem('currentuser');
+	var grocerydict =  userlist[username][2];
+	var grocerylist = Object.keys(grocerydict);
+	var inputname = document.getElementById("name").value;
+	if(grocerylist.indexOf(inputname) == -1){
+		//base設定
+		var elemupdatebtn = document.createElement("input");
+		elemupdatebtn.setAttribute("class","updatebtn");
+		elemupdatebtn.setAttribute("type","button");
+		elemupdatebtn.setAttribute("onclick","register()");
+		elemupdatebtn.setAttribute("id","updatebtn");
+		var elemresult = document.getElementById("result");
+		elemresult.appendChild(elemupdatebtn);
+		var elemnum = document.createElement("input");
+		elemnum.setAttribute("type","number");
+		elemnum.setAttribute("class","textboxstyle");
+		elemnum.setAttribute("id","num");
+		var elemnumcell = document.getElementById("numcell");
+		elemnumcell.appendChild(elemnum);
+		registerTF = false;
+	}else{
+		var elemvalue = document.createElement("input");
+		var elemnum = document.createElement("input");
+		elemvalue.setAttribute("type","number");
+		elemnum.setAttribute("type","number");
+		elemvalue.setAttribute("class","textboxstyle");
+		elemnum.setAttribute("class","textboxstyle");
+		elemvalue.setAttribute("id","value");
+		elemnum.setAttribute("id","num");
+		elemvalue.setAttribute("onkeyup","numCheck()");
+		elemnum.setAttribute("onkeyup","numCheck()");
+		elemvaluecell = document.getElementById("valuecell");
+		elemnumcell = document.getElementById("numcell");
+		elemvaluecell.appendChild(elemvalue);
+		elemnumcell.appendChild(elemnum);
+	}
+}
+function register(){
+	var inputname = document.getElementById("name").value;
+	userlist = JSON.parse(localStorage.getItem('userlist'));
+  username = localStorage.getItem('currentuser');
+	basenum1 = Number(document.getElementById("num").value);
+	userlist[username][2][inputname] = [basenum1,null,null,null];
+	localStorage.setItem('userlist', JSON.stringify(userlist));
+	removeregister();
+	document.getElementById("table").contentWindow.mktable();
+}
+
+function removeregister(){
+	try{
+		var elemupdatebtn = document.getElementById("updatebtn");
+		var elemnum = document.getElementById("num");
+		elemupdatebtn.remove();
+		elemnum.remove();
+	}catch{
+		;
+	}
+}
+
+function removeinput(){
+	try{
+		var elemvalue = document.getElementById("value");
+		var elemnum = document.getElementById("num");
+		elemvalue.remove();
+		elemnum.remove();
+	}catch{
+		;
+	}
+}
+
 </script>
 <style>
+
 .body{
 	margin:0;
-	}
+}
 
 .tablestyle1{
 	height:20vh;
 	width:100vw;
 	padding: 0em;
 	table-layout: fixed;
-	}
+}
 .tablestyle2{
 	height:80vh;
 	width:100vw;
 	padding: 0em;
-	}
+}
 .tdstyle1{
 	height:100%;
 	width:50%;
 	padding: 0em;
-	}
+}
 .tdstyle2{
 	height:100%;
 	width:(50/3)%;
 	padding: 0em;
-	}
+}
 .textboxstyle{
 	display: block;
 	height:100%;
 	width:100%;
 	padding: 0em 0em;
 	font-size:400%;
-	}
+}
 .boxstyle{
 	display: block;
 	height:100%;
 	width:100%;
 	padding: 0em 0em;
 	font-size:400%;
-	}
+}
+.updatebtn{
+	padding: 0em 0em;
+	height:100%;
+	width:100%;
+}
 </style>
 </head>
-<body onLoad="start();">
+<body>
 <header>
 <table class="tablestyle1">
 <tr>
-<td class="tdstyle1"><input type="text" class="textboxstyle" id="name"></input></td>
-<td class="tdstyle2"><input type="text" class="textboxstyle" id="value"></input></td>
-<td class="tdstyle2"><input type="text" class="textboxstyle" id="number"></input></td>
-<td class="tdstyle2"><div class="boxstyle"><a href="">a</a></div></td>
+<td class="tdstyle1"><input type="text" class="textboxstyle" id="name" onkeyup="nameCheck()"></input></td>
+<td class="tdstyle2" id="valuecell"></input></td>
+<td class="tdstyle2" id="numcell"></input></td>
+<td class="tdstyle2" id="result"></td>
 </tr>
 </table>
 </header>
-<iframe src="table.html" class="tablestyle2">
-</iframe>
+<iframe src="table.html" class="tablestyle2" id="table"></iframe>
 </body>
 </html>
