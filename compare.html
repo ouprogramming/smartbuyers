@@ -6,8 +6,6 @@
 
 <script type="text/javascript">
 //basenum設定
-
-
 function directinput(shop,name){
 	remove();
 	setting();
@@ -21,11 +19,8 @@ function directinput(shop,name){
 function nameCheck(){
 	currentshop = "0"
 	remove();
-	elemresult = document.getElementById("result");
-	userlist = JSON.parse(localStorage.getItem('userlist'));
-  username = localStorage.getItem('currentuser');
-	var grocerydict =  userlist[username][2];
-	var grocerylist = Object.keys(grocerydict);
+	setting();
+	var	elemresult = document.getElementById("result");
 	var inputname = document.getElementById("name").value;
 	currentname = inputname;
 	if(grocerylist.indexOf(inputname) == -1){
@@ -58,10 +53,11 @@ function numCheck(){
 		comparablevalue = (inputvalue*basenum0)/inputnum;
 		var TFcount = 0;
 		for(var j=1;j<=shoplist0.length;j++){
+			var id0 = j.toString()+currentname;
 			if(comparablevalue <= previousvaluelist[j]){
-				//子要素セル色緑
 				TFcount += 0
-				if(currentshop==j){
+				document.getElementById("table").contentWindow.color(id,"#38742A","#9BE585");
+				if(currentshop==j && comparablevalue<=previousvaluelist[j]){
 					var elemresult = document.getElementById("result");
 					elemresult.setAttribute("onclick","update()");
 					elemresult.textContent = "更新";
@@ -69,11 +65,16 @@ function numCheck(){
 				}else{
 					;
 				}
+			}else if(currentshop==j && previousvaluelist[j]==null){
+				document.getElementById("table").contentWindow.color(id0,"#38742A","#9BE585");
+				var elemresult = document.getElementById("result");
+				elemresult.setAttribute("onclick","update()");
+				elemresult.textContent = "更新";
+				resultTF = false;
 			}else{
-				//子要素セル色赤
+				document.getElementById("table").contentWindow.color(id0,"#DA3B26","#EDD1E4");
 				TFcount += 1;
 			}
-
 		}
 		elemresult = document.getElementById("result");
 		if(TFcount==0){
@@ -110,6 +111,8 @@ function setting(){
     return item !== "";
   });
   nos1 = shoplist1.length;
+	grocerydict =  userlist[username][2];
+	grocerylist = Object.keys(grocerydict);
 }
 function input(){
 	inputvalue = 0;
@@ -149,11 +152,23 @@ function register(){
 	userlist[username][2][currentname] = [basenum1,null,null,null];
 	localStorage.setItem('userlist', JSON.stringify(userlist));
 	remove();
-		document.getElementById("table").contentWindow.rmtable();
+	document.getElementById("table").contentWindow.rmtable();
 	document.getElementById("table").contentWindow.mktable();
+	input();
 }
 
 function remove(){
+	setting();
+	index = grocerylist.indexOf(currentname);
+	if (index%2 ==2){
+		back = "#000000";
+	}else{
+		back = "#dfdfdf";
+	}
+	for(var j=1;j<=nos0;j++){
+		var id1 = j.toString()+currentname;
+		document.getElementById("table").contentWindow.color(id1,"#000000",back);
+	}
 	try{
 		var elemresult = document.getElementById("result");
 		elemresult.style.backgroundColor = "#FFFFFF";
