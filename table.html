@@ -7,7 +7,7 @@ function btn(){
   for (var i=0; i < td.length; i++) {
     td[i].addEventListener('click', function() {
       var elemid=this.id
-      window.parent.setting(elemid.substr(0,1),elemid.substr(1));
+      window.parent.sdirectinput(elemid.substr(0,1),elemid.substr(1));
     })
   }
 }

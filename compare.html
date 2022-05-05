@@ -162,6 +162,7 @@ function removeregister(){
 		elemresult.textContent = "";
 		elemresult.setAttribute("onclick","");
 		var elemnum = document.getElementById("num");
+		elemnum.setAttribute("value",0);
 		elemnum.remove();
 	}catch{
 		;
@@ -174,6 +175,8 @@ function removeinput(){
 		var elemvalue = document.getElementById("value");
 		var elemnum = document.getElementById("num");
 		elemresult.textContent = "";
+		elemvalue.setAttribute("value",0);
+		elemnum.setAttribute("value",0);
 		elemvalue.remove();
 		elemnum.remove();
 	}catch{
