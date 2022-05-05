@@ -6,16 +6,7 @@
 
 <script type="text/javascript">
 //basenum設定
-function setting(){
-	userlist = JSON.parse(localStorage.getItem('userlist'));
-  username = localStorage.getItem('currentuser');
-	shoplist0 = userlist[username][1];
-  nos0 = shoplist0.length;
-  shoplist1 = shoplist0.filter(function( item ) {
-    return item !== "";
-  });
-  nos1 = shoplist1.length;
-}
+
 
 function directinput(shop,name){
 	remove();
@@ -27,25 +18,31 @@ function directinput(shop,name){
 	input();
 }
 
-function input(){
-	inputvalue = 0;
-	inputnum = 1;
-	var elemvalue = document.createElement("input");
-	var elemnum = document.createElement("input");
-	elemvalue.setAttribute("type","number");
-	elemnum.setAttribute("type","number");
-	elemvalue.setAttribute("class","textboxstyle");
-	elemnum.setAttribute("class","textboxstyle");
-	elemvalue.setAttribute("id","value");
-	elemnum.setAttribute("id","num");
-	elemvalue.setAttribute("onkeyup","numCheck()");
-	elemnum.setAttribute("onkeyup","numCheck()");
-	elemvaluecell = document.getElementById("valuecell");
-	elemnumcell = document.getElementById("numcell");
-	elemvaluecell.appendChild(elemvalue);
-	elemnumcell.appendChild(elemnum);
+function nameCheck(){
+	currentshop = "0"
+	remove();
+	elemresult = document.getElementById("result");
+	userlist = JSON.parse(localStorage.getItem('userlist'));
+  username = localStorage.getItem('currentuser');
+	var grocerydict =  userlist[username][2];
+	var grocerylist = Object.keys(grocerydict);
+	var inputname = document.getElementById("name").value;
+	currentname = inputname;
+	if(grocerylist.indexOf(inputname) == -1){
+		var elemresult = document.getElementById("result");
+		elemresult.setAttribute("onclick","register()");
+		elemresult.textContent = "追加";
+		var elemnum = document.createElement("input");
+		elemnum.setAttribute("type","number");
+		elemnum.setAttribute("class","textboxstyle");
+		elemnum.setAttribute("id","num");
+		var elemnumcell = document.getElementById("numcell");
+		elemnumcell.appendChild(elemnum);
+		registerTF = false;
+	}else{
+		input();
+	}
 }
-
 function numCheck(){
 	resultTF = true
 	inputvalue = Number(document.getElementById("value").value);
@@ -92,7 +89,6 @@ function numCheck(){
 			elemresult.style.color = "#DA3B26";
 			result("×");
 		}
-
 	}
 }
 
@@ -105,40 +101,46 @@ function result(sign){
 	}
 }
 
+function setting(){
+	userlist = JSON.parse(localStorage.getItem('userlist'));
+  username = localStorage.getItem('currentuser');
+	shoplist0 = userlist[username][1];
+  nos0 = shoplist0.length;
+  shoplist1 = shoplist0.filter(function( item ) {
+    return item !== "";
+  });
+  nos1 = shoplist1.length;
+}
+function input(){
+	inputvalue = 0;
+	inputnum = 1;
+	var elemvalue = document.createElement("input");
+	var elemnum = document.createElement("input");
+	elemvalue.setAttribute("type","number");
+	elemnum.setAttribute("type","number");
+	elemvalue.setAttribute("class","textboxstyle");
+	elemnum.setAttribute("class","textboxstyle");
+	elemvalue.setAttribute("id","value");
+	elemnum.setAttribute("id","num");
+	elemvalue.setAttribute("onkeyup","numCheck()");
+	elemnum.setAttribute("onkeyup","numCheck()");
+	elemvaluecell = document.getElementById("valuecell");
+	elemnumcell = document.getElementById("numcell");
+	elemvaluecell.appendChild(elemvalue);
+	elemnumcell.appendChild(elemnum);
+}
+
 function update(){
 	alert("update");
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	userlist[username][2][currentname][currentshop] = comparablevalue;
 	localStorage.setItem('userlist', JSON.stringify(userlist));
+	document.getElementById("table").contentWindow.rmtable();
 	document.getElementById("table").contentWindow.mktable();
 }
 
-function nameCheck(){
-	currentshop = "0"
-	remove();
-	elemresult = document.getElementById("result");
-	userlist = JSON.parse(localStorage.getItem('userlist'));
-  username = localStorage.getItem('currentuser');
-	var grocerydict =  userlist[username][2];
-	var grocerylist = Object.keys(grocerydict);
-	var inputname = document.getElementById("name").value;
-	currentname = inputname;
-	if(grocerylist.indexOf(inputname) == -1){
-		var elemresult = document.getElementById("result");
-		elemresult.setAttribute("onclick","register()");
-		elemresult.textContent = "追加";
-		var elemnum = document.createElement("input");
-		elemnum.setAttribute("type","number");
-		elemnum.setAttribute("class","textboxstyle");
-		elemnum.setAttribute("id","num");
-		var elemnumcell = document.getElementById("numcell");
-		elemnumcell.appendChild(elemnum);
-		registerTF = false;
-	}else{
-		input();
-	}
-}
+
 function register(){
 	alert("register")
 	userlist = JSON.parse(localStorage.getItem('userlist'));
@@ -147,6 +149,7 @@ function register(){
 	userlist[username][2][currentname] = [basenum1,null,null,null];
 	localStorage.setItem('userlist', JSON.stringify(userlist));
 	remove();
+		document.getElementById("table").contentWindow.rmtable();
 	document.getElementById("table").contentWindow.mktable();
 }
 

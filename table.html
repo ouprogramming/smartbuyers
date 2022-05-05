@@ -15,6 +15,7 @@ function btn(){
 
 function mktable(){
   var table = document.createElement('table');
+  table.setAttribute("id","table")
   var userlist = JSON.parse(localStorage.getItem('userlist'));
   var username = localStorage.getItem('currentuser');
   var grocerydict = userlist[username][2];
@@ -68,8 +69,13 @@ function mktable(){
     table.appendChild(tr);
   }
   table.setAttribute("class","tablestyle")
-  document.getElementById('maintable').appendChild(table);
+  document.getElementById("tablebox").appendChild(table);
 }
+
+function rmtable(){
+  document.getElementById("table").remove();
+}
+
 </script>
 <style>
 *{
@@ -108,7 +114,7 @@ function mktable(){
 </style>
 </head>
 <body onload="mktable(); btn();">
-<div id="maintable">
+<div id="tablebox">
 </div>
 </body>
 </html>
