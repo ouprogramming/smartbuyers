@@ -31,6 +31,7 @@ function nameCheck(){
 		elemnum.setAttribute("type","number");
 		elemnum.setAttribute("class","textboxstyle");
 		elemnum.setAttribute("id","num");
+			elemnum.setAttribute("placeholder","個/g");
 		var elemnumcell = document.getElementById("numcell");
 		elemnumcell.appendChild(elemnum);
 		registerTF = false;
@@ -127,6 +128,8 @@ function input(){
 	elemnum.setAttribute("id","num");
 	elemvalue.setAttribute("onkeyup","numCheck()");
 	elemnum.setAttribute("onkeyup","numCheck()");
+	elemvalue.setAttribute("placeholder","値段");
+	elemnum.setAttribute("placeholder","個/g");
 	elemvaluecell = document.getElementById("valuecell");
 	elemnumcell = document.getElementById("numcell");
 	elemvaluecell.appendChild(elemvalue);
