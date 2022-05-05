@@ -158,16 +158,20 @@ function register(){
 }
 
 function remove(){
-	setting();
-	index = grocerylist.indexOf(currentname);
-	if (index%2 ==2){
-		back = "#000000";
-	}else{
-		back = "#dfdfdf";
-	}
-	for(var j=1;j<=nos0;j++){
-		var id1 = j.toString()+currentname;
-		document.getElementById("table").contentWindow.color(id1,"#000000",back);
+	try{
+		setting();
+		index = grocerylist.indexOf(currentname);
+		if (index%2 ==2){
+			back = "#000000";
+		}else{
+			back = "#dfdfdf";
+		}
+		for(var j=1;j<=nos0;j++){
+			var id1 = j.toString()+currentname;
+			document.getElementById("table").contentWindow.color(id1,"#000000",back);
+		}
+	}catch{
+		;
 	}
 	try{
 		var elemresult = document.getElementById("result");
