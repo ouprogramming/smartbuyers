@@ -99,7 +99,6 @@ function numCheck(){
 }
 
 function result(sign){
-	alert(resultTF);
 	if(resultTF){
 		elemresult = document.getElementById("result");
 		elemresult.textContent = sign;
@@ -146,7 +145,6 @@ function nameCheck(){
 	}
 }
 function register(){
-	alert("register");
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	basenum1 = Number(document.getElementById("num").value);
