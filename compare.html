@@ -139,7 +139,7 @@ function input(){
 function update(){
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
-	userlist[username][2][currentname][currentshop] = comparablevalue.round();
+	userlist[username][2][currentname][currentshop] = Math.round(comparablevalue);
 	localStorage.setItem('userlist', JSON.stringify(userlist));
 	document.getElementById("table").contentWindow.rmtable();
 	document.getElementById("table").contentWindow.mktable();
@@ -150,7 +150,7 @@ function register(){
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	basenum1 = Number(document.getElementById("num").value);
-	userlist[username][2][currentname] = [basenum1.round(),null,null,null];
+	userlist[username][2][currentname] = [Math.round(basenum1),null,null,null];
 	localStorage.setItem('userlist', JSON.stringify(userlist));
 	remove();
 	document.getElementById("table").contentWindow.rmtable();
