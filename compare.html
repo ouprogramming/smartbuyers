@@ -23,7 +23,7 @@ function directinput(shop,name){
 	var elemname = document.getElementById("name");
 	elemname.value = name;
 	currentname = name;
-	currentshop = shop;
+	currentshop = Number(shop);
 	input();
 }
 
@@ -60,9 +60,8 @@ function numCheck(){
 		previousvaluelist = userlist[username][2][currentname];
 		comparablevalue = (inputvalue*basenum0)/inputnum;
 		var TFcount = 0;
-		for(var j=0;j<shoplist0.length;j++){
-
-			if(comparablevalue <= previousvaluelist[j+1]){
+		for(var j=1;j<=shoplist0.length;j++){
+			if(comparablevalue <= previousvaluelist[j]){
 				//子要素セル色緑
 				TFcount += 0
 				if(currentshop==j){
@@ -111,14 +110,13 @@ function update(){
   username = localStorage.getItem('currentuser');
 	userlist[username][2][currentname][currentshop] = comparablevalue;
 	localStorage.setItem('userlist', JSON.stringify(userlist));
+	document.getElementById("table").contentWindow.mktable();
 }
 
 function nameCheck(){
-	currentshop = "-"
+	currentshop = "0"
 	remove();
 	elemresult = document.getElementById("result");
-	elemresult.style.backgroundColor = "#FFFFFF";
-	elemresult.style.color = "#000000";
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	var grocerydict =  userlist[username][2];
@@ -153,6 +151,8 @@ function register(){
 function remove(){
 	try{
 		var elemresult = document.getElementById("result");
+		elemresult.style.backgroundColor = "#FFFFFF";
+		elemresult.style.color = "#000000";
 		elemresult.textContent = "";
 		elemresult.setAttribute("onclick","");
 	}catch{
