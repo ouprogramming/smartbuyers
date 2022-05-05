@@ -2,15 +2,10 @@
 <head>
 <title>table</title>
 <script>
-function btn(){
-  var td = document.getElementsByTagName('td');
-  for (var i=0; i < td.length; i++) {
-    td[i].addEventListener('click', function() {
-      var elemid=this.id
-      alert("btn");
-      window.parent.directinput(elemid.substr(0,1),elemid.substr(1));
-    })
-  }
+function btn(elem){
+  var elemid=elem.id;
+  alert("btn");
+  window.parent.directinput(elemid.substr(0,1),elemid.substr(1));
 }
 
 function mktable(){
@@ -48,6 +43,7 @@ function mktable(){
     td0.textContent = grocerylist[i];
     td0.setAttribute("class","td0style");
     td0.setAttribute("id","0"+grocerylist[i]);
+    td0.setAttribute("onclick","btn(this)");
     if (i % 2 ===0){
       tr.setAttribute("bgcolor","#ffffff");
     }else{
@@ -59,6 +55,7 @@ function mktable(){
       td.setAttribute("class","td1style");
       td.setAttribute("width",width1);
       td.setAttribute("id",j.toString()+grocerylist[i]);
+      td.setAttribute("onclick","btn(this)");
       td.textContent = grocerydict[grocerylist[i]][j];
       if (shoplist0[j-1]==""){
         ;
@@ -113,7 +110,7 @@ function rmtable(){
 }
 </style>
 </head>
-<body onload="mktable(); btn();">
+<body onload="mktable();">
 <div id="tablebox">
 </div>
 </body>
