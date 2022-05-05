@@ -137,10 +137,9 @@ function input(){
 }
 
 function update(){
-	alert("update");
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
-	userlist[username][2][currentname][currentshop] = comparablevalue;
+	userlist[username][2][currentname][currentshop] = comparablevalue.round();
 	localStorage.setItem('userlist', JSON.stringify(userlist));
 	document.getElementById("table").contentWindow.rmtable();
 	document.getElementById("table").contentWindow.mktable();
@@ -148,11 +147,10 @@ function update(){
 
 
 function register(){
-	alert("register")
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	basenum1 = Number(document.getElementById("num").value);
-	userlist[username][2][currentname] = [basenum1,null,null,null];
+	userlist[username][2][currentname] = [basenum1.round(),null,null,null];
 	localStorage.setItem('userlist', JSON.stringify(userlist));
 	remove();
 	document.getElementById("table").contentWindow.rmtable();
