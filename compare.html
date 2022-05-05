@@ -18,8 +18,7 @@ function setting(){
 }
 
 function directinput(shop,name){
-	removeregister();
-	removeinput();
+	remove();
 	setting();
 	var elemname = document.getElementById("name");
 	elemname.value = name;
@@ -105,7 +104,6 @@ function result(sign){
 	}else{
 		;
 	}
-
 }
 
 function update(){
@@ -117,8 +115,7 @@ function update(){
 
 function nameCheck(){
 	currentshop = "-"
-	removeinput();
-	removeregister();
+	remove();
 	elemresult = document.getElementById("result");
 	elemresult.style.backgroundColor = "#FFFFFF";
 	elemresult.style.color = "#000000";
@@ -129,7 +126,6 @@ function nameCheck(){
 	var inputname = document.getElementById("name").value;
 	currentname = inputname;
 	if(grocerylist.indexOf(inputname) == -1){
-
 		var elemresult = document.getElementById("result");
 		elemresult.setAttribute("onclick","register()");
 		elemresult.textContent = "追加";
@@ -150,33 +146,35 @@ function register(){
 	basenum1 = Number(document.getElementById("num").value);
 	userlist[username][2][currentname] = [basenum1,null,null,null];
 	localStorage.setItem('userlist', JSON.stringify(userlist));
-	removeregister();
+	remove();
 	document.getElementById("table").contentWindow.mktable();
 }
 
-function removeregister(){
+function remove(){
 	try{
 		var elemresult = document.getElementById("result");
 		elemresult.textContent = "";
 		elemresult.setAttribute("onclick","");
+	}catch{
+		;
+	}
+	try{
 		var elemnum = document.getElementById("num");
 		elemnum.setAttribute("value",0);
 		elemnum.remove();
 	}catch{
 		;
 	}
-}
-
-function removeinput(){
 	try{
 		var elemresult = document.getElementById("result");
-		var elemvalue = document.getElementById("value");
-		var elemnum = document.getElementById("num");
 		elemresult.textContent = "";
+	}catch{
+		;
+	}
+	try{
+		var elemvalue = document.getElementById("value");
 		elemvalue.setAttribute("value",0);
-		elemnum.setAttribute("value",0);
 		elemvalue.remove();
-		elemnum.remove();
 	}catch{
 		;
 	}
