@@ -6,23 +6,31 @@
 
 <script type="text/javascript">
 //basenum設定
-function setting(shop,name){
-	removeregister();
-	removeinput();
+function setting(){
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	shoplist0 = userlist[username][1];
-  nos0 = shoplist1.length;
+  nos0 = shoplist0.length;
   shoplist1 = shoplist0.filter(function( item ) {
     return item !== "";
   });
   nos1 = shoplist1.length;
-	inputvalue = 0;
-	inputnum = 1;
+}
+
+function directinput(shop,name){
+	removeregister();
+	removeinput();
+	setting();
 	var elemname = document.getElementById("name");
 	elemname.value = name;
 	currentname = name;
 	currentshop = shop;
+	input();
+}
+
+function input(){
+	inputvalue = 0;
+	inputnum = 1;
 	var elemvalue = document.createElement("input");
 	var elemnum = document.createElement("input");
 	elemvalue.setAttribute("type","number");
@@ -40,54 +48,65 @@ function setting(shop,name){
 }
 
 function numCheck(){
-	inputvalue = Number(document.getElement("value").value);
-	inputnum = Number(document.getElement("num").value);
+	resultTF = true
+	inputvalue = Number(document.getElementById("value").value);
+	inputnum = Number(document.getElementById("num").value);
 	if (inputvalue == 0){
 		;
 	}else if (inputnum == 0) {
 		;
 	}else{
+		setting();
 		basenum0 = userlist[username][2][currentname][0];
 		previousvaluelist = userlist[username][2][currentname];
-		comparablevalue=(inputvalue*basenum0)/inputnum;
-		var TFlist = 0;
+		comparablevalue = (inputvalue*basenum0)/inputnum;
+		var TFcount = 0;
 		for(var j=0;j<shoplist0.length;j++){
-			elemcell = document.getElementById(j.toString()+currentname);
-			if(comparablevalue < previous[j+1]){
-				elemcell.style.backgroundColor = "#9BE585";
-				elemcell.style.color = "#38742A";
+
+			if(comparablevalue <= previousvaluelist[j+1]){
+				//子要素セル色緑
 				TFcount += 0
 				if(currentshop==j){
-					var elemupdatebtn = document.createElement("input");
-					updatebtn.setAttribute("class","updatebtn");
-					updatebtn.setAttribute("type","button");
-					updatebtn.setAttribute("onclick","update()");
 					var elemresult = document.getElementById("result");
-					elemresult.appendChild(elemupdatebtn);
+					elemresult.setAttribute("onclick","update()");
+					elemresult.textContent = "更新";
+					resultTF = false;
 				}else{
 					;
 				}
 			}else{
-				elemcell.style.backgroundColor = "#EDD1E4";
-				elemcell.style.color = "#DA3B26";
+				//子要素セル色赤
 				TFcount += 1;
 			}
+
 		}
 		elemresult = document.getElementById("result");
 		if(TFcount==0){
 			elemresult.style.backgroundColor = "#9BE585";
 			elemresult.style.color = "#38742A";
-			elemresult.value = "○";
-		}else if(TFcount > 0 && TFcount < nos){
+			result("◯");
+		}else if(TFcount > 0 && TFcount < nos0){
 			elemresult.style.backgroundColor = "#F7F1AC";
 			elemresult.style.color = "#F27200";
-			elemresult.value = "△";
+			result("△");
 		}else{
 			elemresult.style.backgroundColor = "#EDD1E4";
 			elemresult.style.color = "#DA3B26";
-			elemresult.value = "×";
+			result("×");
 		}
+
 	}
+}
+
+function result(sign){
+	alert(resultTF);
+	if(resultTF){
+		elemresult = document.getElementById("result");
+		elemresult.textContent = sign;
+	}else{
+		;
+	}
+
 }
 
 function update(){
@@ -98,22 +117,23 @@ function update(){
 }
 
 function nameCheck(){
+	currentshop = "-"
 	removeinput();
 	removeregister();
+	elemresult = document.getElementById("result");
+	elemresult.style.backgroundColor = "#FFFFFF";
+	elemresult.style.color = "#000000";
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	var grocerydict =  userlist[username][2];
 	var grocerylist = Object.keys(grocerydict);
 	var inputname = document.getElementById("name").value;
+	currentname = inputname;
 	if(grocerylist.indexOf(inputname) == -1){
-		//base設定
-		var elemupdatebtn = document.createElement("input");
-		elemupdatebtn.setAttribute("class","updatebtn");
-		elemupdatebtn.setAttribute("type","button");
-		elemupdatebtn.setAttribute("onclick","register()");
-		elemupdatebtn.setAttribute("id","updatebtn");
+
 		var elemresult = document.getElementById("result");
-		elemresult.appendChild(elemupdatebtn);
+		elemresult.setAttribute("onclick","register()");
+		elemresult.textContent = "追加";
 		var elemnum = document.createElement("input");
 		elemnum.setAttribute("type","number");
 		elemnum.setAttribute("class","textboxstyle");
@@ -122,28 +142,15 @@ function nameCheck(){
 		elemnumcell.appendChild(elemnum);
 		registerTF = false;
 	}else{
-		var elemvalue = document.createElement("input");
-		var elemnum = document.createElement("input");
-		elemvalue.setAttribute("type","number");
-		elemnum.setAttribute("type","number");
-		elemvalue.setAttribute("class","textboxstyle");
-		elemnum.setAttribute("class","textboxstyle");
-		elemvalue.setAttribute("id","value");
-		elemnum.setAttribute("id","num");
-		elemvalue.setAttribute("onkeyup","numCheck()");
-		elemnum.setAttribute("onkeyup","numCheck()");
-		elemvaluecell = document.getElementById("valuecell");
-		elemnumcell = document.getElementById("numcell");
-		elemvaluecell.appendChild(elemvalue);
-		elemnumcell.appendChild(elemnum);
+		input();
 	}
 }
 function register(){
-	var inputname = document.getElementById("name").value;
+	alert("register");
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	basenum1 = Number(document.getElementById("num").value);
-	userlist[username][2][inputname] = [basenum1,null,null,null];
+	userlist[username][2][currentname] = [basenum1,null,null,null];
 	localStorage.setItem('userlist', JSON.stringify(userlist));
 	removeregister();
 	document.getElementById("table").contentWindow.mktable();
@@ -151,9 +158,10 @@ function register(){
 
 function removeregister(){
 	try{
-		var elemupdatebtn = document.getElementById("updatebtn");
+		var elemresult = document.getElementById("result");
+		elemresult.textContent = "";
+		elemresult.setAttribute("onclick","");
 		var elemnum = document.getElementById("num");
-		elemupdatebtn.remove();
 		elemnum.remove();
 	}catch{
 		;
@@ -162,8 +170,10 @@ function removeregister(){
 
 function removeinput(){
 	try{
+		var elemresult = document.getElementById("result");
 		var elemvalue = document.getElementById("value");
 		var elemnum = document.getElementById("num");
+		elemresult.textContent = "";
 		elemvalue.remove();
 		elemnum.remove();
 	}catch{
