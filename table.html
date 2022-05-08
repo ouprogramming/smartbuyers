@@ -5,15 +5,18 @@
 function btn(elemcurrent){
   var elemcurrentid=elemcurrent.id;
   window.parent.directinput(elemcurrentid.substr(0,1),elemcurrentid.substr(1));
-  alert("btn");
   elemcurrent.style.color = "#0000FF";
   elemcurrent.style.backgroundColor = "#B7DAF5";
-  elemcurrentname = document.getElementById("0"+elemcurrentid.substr(1));
+  var elemcurrentname = document.getElementById("0"+elemcurrentid.substr(1));
   elemcurrentname.style.color = "#0000FF";
   elemcurrentname.style.backgroundColor = "#B7DAF5";
-  elemcurrentshop = document.getElementById("shop"+elemcurrentid.substr(0,1));
-  elemcurrentshop.style.color = "#0000FF";
-  elemcurrentshop.style.backgroundColor = "#B7DAF5";
+  try{
+    var elemcurrentshop = document.getElementById("shop"+elemcurrentid.substr(0,1));
+    elemcurrentshop.style.color = "#0000FF";
+    elemcurrentshop.style.backgroundColor = "#B7DAF5";
+  }catch{
+    ;
+  }
 }
 
 function mktable(){
