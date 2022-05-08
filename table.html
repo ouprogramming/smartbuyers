@@ -7,6 +7,7 @@ function btn(elemcurrent){
   window.parent.directinput(elemcurrentid.substr(0,1),elemcurrentid.substr(1));
   elemcurrent.style.color = "#0000FF";
   elemcurrent.style.backgroundColor = "#B7DAF5";
+  elemcurrent.style.border = "2px #0000FF solid"
   var elemcurrentname = document.getElementById("0"+elemcurrentid.substr(1));
   elemcurrentname.style.color = "#0000FF";
   elemcurrentname.style.backgroundColor = "#B7DAF5";
@@ -91,6 +92,7 @@ function tdcolor(id,font,back){
   var elemtd = document.getElementById(id);
   elemtd.style.color = font;
   elemtd.style.backgroundColor = back;
+  elemtd.style.border = "2px #404040 solid"
   alert("tdcolor");
 }
 function thcolor(id){
