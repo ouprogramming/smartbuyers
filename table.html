@@ -2,11 +2,17 @@
 <head>
 <title>table</title>
 <script>
-function btn(elem){
-  var elemid=elem.id;
-  elem.style.color = "#0000FF";
-  elem.style.backgroundColor = "＃B7DAF5";
-  window.parent.directinput(elemid.substr(0,1),elemid.substr(1));
+function btn(elemcurrent){
+  window.parent.directinput(elemcurrentid.substr(0,1),elemcurrentid.substr(1));
+  var elemcurrentid=elemcurrent.id;
+  elemcurrent.style.color = "#0000FF";
+  elemcurrent.style.backgroundColor = "＃B7DAF5";
+  elemcurrentname = document.getElementById("0"+elemcurrentid.substr(1));
+  elemcurrentname.style.color = "#0000FF";
+  elemcurrentname.backgroundColor = "＃B7DAF5";
+  elemcurrentshop = document.getElementById("shop"+elemcurrentid.substr(0,1));
+  elemcurrentshop.style.color = "#0000FF";
+  elemcurrentshop.backgroundColor = "＃B7DAF5";
 }
 
 function mktable(){
@@ -30,13 +36,15 @@ function mktable(){
   th0.setAttribute("id","");
   var tr0 = document.createElement('tr');
   tr0.appendChild(th0);
-  for(var j=0; j< nos1; j++){
-    var th = document.createElement('th');
-    th.textContent = shoplist1[j];
-    th.setAttribute("class","th1style");
-    th.setAttribute("id",shoplist1[j]);
-    th.setAttribute("width",width1);
-    tr0.appendChild(th);
+  for(var j=0; j< nos0; j++){
+    if(shoplist1[j]!==""){
+      var th = document.createElement('th');
+      th.textContent = shoplist1[j];
+      th.setAttribute("class","th1style");
+      th.setAttribute("id","shop"+j.toString());
+      th.setAttribute("width",width1);
+      tr0.appendChild(th);
+    }
   }
   table.appendChild(tr0);
   for (var i = 0; i< grocerylist.length; i++){
@@ -75,10 +83,15 @@ function rmtable(){
   document.getElementById("table").remove();
 }
 
-function color(id,font,back){
-  elemcell = document.getElementById(id);
-  elemcell.style.backgroundColor = back;
-  elemcell.style.color = font;
+function tdcolor(id,font,back){
+  var elemtd = document.getElementById(id);
+  elemtd.style.color = font;
+  elemtd.style.backgroundColor = back;
+}
+function tdcolor(id){
+  var elemth = document.getElementById(id);
+  elemth.style.color = "#ffffff";
+  elemth.style.backgroundColor = "#404040";
 }
 
 </script>
