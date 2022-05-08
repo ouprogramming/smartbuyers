@@ -160,6 +160,7 @@ function input(){
 }
 
 function update(){
+	alert("update");
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	userlist[username][2][currentname][currentshop] = Math.round(comparablevalue);
@@ -170,6 +171,7 @@ function update(){
 
 
 function register(){
+	alert("register");
 	userlist = JSON.parse(localStorage.getItem('userlist'));
   username = localStorage.getItem('currentuser');
 	basenum1 = Number(document.getElementById("num").value);
