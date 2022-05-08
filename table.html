@@ -3,7 +3,8 @@
 <title>table</title>
 <script>
 function btn(elemcurrent){
-  window.parent.directinput(elemcurrentid.substr(0,1),elemcurrentid.substr(1));
+  window.parent.directinput(elemcurrentid.substr(0,1),elemcurrentid.substr(1))
+  alert("btn")
   var elemcurrentid=elemcurrent.id;
   elemcurrent.style.color = "#0000FF";
   elemcurrent.style.backgroundColor = "＃B7DAF5";
@@ -87,11 +88,13 @@ function tdcolor(id,font,back){
   var elemtd = document.getElementById(id);
   elemtd.style.color = font;
   elemtd.style.backgroundColor = back;
+  alert("tdcolor");
 }
-function tdcolor(id){
+function thcolor(id){
   var elemth = document.getElementById(id);
   elemth.style.color = "#ffffff";
   elemth.style.backgroundColor = "#404040";
+  alert("tdcolor");
 }
 
 </script>
