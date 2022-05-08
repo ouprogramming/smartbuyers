@@ -9,6 +9,7 @@
 function start(){
 	var select = document.createElement('select');
 	select.setAttribute("id","select");
+	select.setAttribute("class","selectstyle");
 	select.setAttribute("name","shop");
 	preparation();
 	var option = document.createElement('option');
@@ -21,8 +22,6 @@ function start(){
 			option.setAttribute("value",shoplist0[i]);
 			option.setAttribute("label",shoplist0[i]);
 			select.appendChild(option);
-		}else{
-			;
 		}
 	}
 	document.getElementById("selectcell").appendChild(select);
@@ -48,6 +47,8 @@ function nameCheck(){
 		var elemupdatecell = document.getElementById("updatecell");
 		elemupdatecell.setAttribute("onclick","register()");
 		elemupdatecell.textContent = "追加";
+		elemupdatecell.style.color = "#38742A"
+		elemupdatecell.style.backgroundColor = "#9BE585";
 		var elemnum = document.createElement("input");
 		elemnum.setAttribute("type","number");
 		elemnum.setAttribute("class","textboxstyle");
@@ -63,11 +64,7 @@ function numCheck(){
 	resultTF = true
 	inputvalue = Number(document.getElementById("value").value);
 	inputnum = Number(document.getElementById("num").value);
-	if (inputvalue == 0){
-		;
-	}else if (inputnum == 0) {
-		;
-	}else{
+	if (inputvalue !== 0 && inputnum !== 0){
 		preparation();
 		basenum0 = userlist[username][2][currentname][0];
 		previousvaluelist = userlist[username][2][currentname];
@@ -82,8 +79,6 @@ function numCheck(){
 					var elemupdatecell = document.getElementById("updatecell");
 					elemupdatecell.setAttribute("onclick","update()");
 					elemupdatecell.textContent = "更新";
-				}else{
-					;
 				}
 			}else if(currentshop==j && previousvaluelist[j]==null){
 				document.getElementById("table").contentWindow.color(id0,"#38742A","#9BE585");
@@ -170,7 +165,51 @@ function register(){
 	input();
 }
 
+function setting(){
+	;
+}
+
 function remove(){
+	judgereset();
+	try{
+		var elemnum = document.getElementById("num");
+		elemnum.setAttribute("value",0);
+		elemnum.remove();
+	}catch{
+		;
+	}
+	try{
+		var elemvalue = document.getElementById("value");
+		elemvalue.setAttribute("value",0);
+		elemvalue.remove();
+	}catch{
+		;
+	}
+}
+
+function inputclear(){
+	judgereset();
+	try{
+		var elemname = document.getElementById("name")
+		elemname.value = "";
+	}catch{
+		;
+	}
+	try{
+		var elemvalue = document.getElementById("value")
+		elemvalue.value = "";
+	}catch{
+		;
+	}
+	try{
+		var elemnum = document.getElementById("num")
+		elemnum.value = "";
+	}catch{
+		;
+	}
+}
+
+function judgereset(){
 	try{
 		preparation();
 		index = grocerylist.indexOf(currentname);
@@ -188,42 +227,23 @@ function remove(){
 	}
 	try{
 		var elemupdatecell = document.getElementById("updatecell");
-		elemelemupdatecell.style.backgroundColor = "#FFFFFF";
-		elemelemupdatecell.style.color = "#000000";
-		elemelemupdatecell.textContent = "";
-		elemelemupdatecell.setAttribute("onclick","");
+		elemupdatecell.style.color = "#ffffff";
+		elemupdatecell.style.backgroundColor = "#404040";
+		elemupdatecell.textContent = "";
+		elemupdatecell.setAttribute("onclick","");
 	}catch{
 		;
 	}
 	try{
 		var elemresult = document.getElementById("result");
-		elemresult.style.backgroundColor = "#FFFFFF";
-		elemresult.style.color = "#000000";
+		elemresult.style.color = "#ffffff";
+		elemresult.style.backgroundColor = "#404040";
 		elemresult.textContent = "";
-	}catch{
-		;
-	}
-	try{
-		var elemnum = document.getElementById("num");
-		elemnum.setAttribute("value",0);
-		elemnum.remove();
-	}catch{
-		;
-	}
-	try{
-		var elemresult = document.getElementById("result");
-		elemresult.textContent = "";
-	}catch{
-		;
-	}
-	try{
-		var elemvalue = document.getElementById("value");
-		elemvalue.setAttribute("value",0);
-		elemvalue.remove();
 	}catch{
 		;
 	}
 }
+
 
 </script>
 <style>
@@ -233,10 +253,13 @@ function remove(){
 }
 
 .tablestyle1{
-	height:20vh;
+	height:10vh;
 	width:100vw;
 	padding: 0em;
 	table-layout: fixed;
+	color:#000000;
+	background-color: #404040;
+
 }
 .tablestyle2{
 	height:80vh;
@@ -244,14 +267,25 @@ function remove(){
 	padding: 0em;
 }
 .tdstyle1{
-	height:100%;
-	width:50%;
+	height:50%;
+	width:40%;
 	padding: 0em;
+	text-align: center;
 }
 .tdstyle2{
-	height:100%;
-	width:(50/3)%;
-	padding: 0em;
+	height:50%;
+	width:20%;
+	padding:0em;
+	text-align: center;
+	font-size:5vh;
+}
+.tdstyle3{
+	height:50%;
+	width:25%;
+	padding:0em;
+	color:#ffffff;
+	text-align: center;
+	font-size:5vh;
 }
 .textboxstyle{
 	display: block;
@@ -259,6 +293,7 @@ function remove(){
 	width:100%;
 	padding: 0em 0em;
 	font-size:400%;
+	font-size:5vh;
 }
 .boxstyle{
 	display: block;
@@ -267,24 +302,30 @@ function remove(){
 	padding: 0em 0em;
 	font-size:400%;
 }
-.updatebtn{
-	padding: 0em 0em;
+.selectstyle{
 	height:100%;
 	width:100%;
+	color:#ffffff;
+	background-color:#404040;
+  border: 2px #dfdfdf solid;
+	font-size:5vh;
 }
+
 </style>
 </head>
 <body onload="start()">
 <header>
 <table class="tablestyle1">
 <tr>
-<td class="tdstyle3" onclick="clear()">クリア</td>
-<td class="tdstyle3" onclick="setting()">設定</td>
+<td class="tdstyle3" id="clearcell" onclick="inputclear()">クリア</td>
+<td class="tdstyle3" id="settingcell" onclick="setting()">設定</td>
 <td class="tdstyle3" id="selectcell"></td>
 <td class="tdstyle3" id="updatecell"></td>
 </tr>
+</table>
+<table class="tablestyle1">
 <tr>
-<td class="tdstyle1"><input type="text" class="textboxstyle" id="name" onkeyup="nameCheck()"></input></td>
+<td class="tdstyle1"><input type="text" class="textboxstyle" id="name" onkeyup="nameCheck()" placeholder="商品名"></input></td>
 <td class="tdstyle2" id="valuecell"></input></td>
 <td class="tdstyle2" id="numcell"></input></td>
 <td class="tdstyle2" id="result"></td>
