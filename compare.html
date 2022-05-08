@@ -261,7 +261,7 @@ function judgereset(){
 }
 
 .tablestyle1{
-	height:10vh;
+	height:20vh;
 	width:100%;
 	padding: 0em;
 	table-layout: fixed;
@@ -291,7 +291,15 @@ function judgereset(){
 }
 .tdstyle3{
 	height:50%;
-	width:25%;
+	width:20%;
+	padding:0em;
+	color:#ffffff;
+	text-align: center;
+	font-size:3vh;
+}
+.tdstyle4{
+	height:50%;
+	width:40%;
 	padding:0em;
 	color:#ffffff;
 	text-align: center;
@@ -322,7 +330,17 @@ function judgereset(){
 	background-color:#404040;
   border: 2px #dfdfdf solid;
 	font-size:2vh;
-
+	border-radius: 5%;
+}
+.cellbox{
+	width:96%;
+	height:96%;
+	border: 2px solid #dfdfdf; /* 境界線を実線で指定 */
+	text-align: center;
+	border-radius: 5%;
+	display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 </style>
@@ -331,13 +349,11 @@ function judgereset(){
 <header>
 <table class="tablestyle1">
 <tr>
-<td class="tdstyle3" id="clearcell" onclick="inputclear()">クリア</td>
-<td class="tdstyle3" id="settingcell" onclick="setting()">設定</td>
-<td class="tdstyle3" id="selectcell"></td>
+<td class="tdstyle4" id="selectcell"></td>
+<td class="tdstyle3" id="settingcell" onclick="setting()"><div class="cellbox">設定</div></td>
+<td class="tdstyle3" id="clearcell" onclick="inputclear()"><div class="cellbox">クリア</div></td>
 <td class="tdstyle3" id="updatecell"></td>
 </tr>
-</table>
-<table class="tablestyle1">
 <tr>
 <td class="tdstyle1"><input type="text" class="textboxstyle" id="name" onkeyup="nameCheck()" placeholder="商品名"></input></td>
 <td class="tdstyle2" id="valuecell"></input></td>
