@@ -208,6 +208,11 @@ function inputremove(){
 function inputclear(){
 	judgereset();
 	try{
+		document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
+	}catch{
+		;
+	}
+	try{
 		var elemname = document.getElementById("name")
 		elemname.value = "";
 	}catch{
@@ -228,7 +233,6 @@ function inputclear(){
 }
 
 function judgereset(){
-	alert("judgereset");
 	preparation();
 	try{
 		var index = grocerylist.indexOf(currentname);
