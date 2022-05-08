@@ -225,16 +225,14 @@ function judgereset(){
 		;
 	}
 	try{
-		elemcurrentcell = document.getElementById();
-		elemcurrentname = document.getElementById();
-		elemcurrentshop = document.getElementById("shop"+currentshop);
 		if (index%2 ==0){
 			back = "#ffffff";
 		}else{
 			back = "#dfdfdf";
 		}
 		document.getElementById("table").contentWindow.tdcolor(currentshop.toString()+currentname,"#000000",back);
-		document.getElementById("table").contentWindow.thcolor("shop"+currentshop);
+		document.getElementById("table").contentWindow.tdcolor("0"+currentname,"#000000",back);
+		document.getElementById("table").contentWindow.thcolor("shop"+currentshop.toString());
 	}catch{
 		;
 	}
