@@ -32,6 +32,7 @@ function start(){
 }
 function directinput(shop,name){
 	inputremove();
+	document.getElementById("table").contentWindow.tdborder();
 	preparation();
 	var elemname = document.getElementById("name");
 	elemname.value = name;
@@ -42,6 +43,7 @@ function directinput(shop,name){
 
 function nameCheck(){
 	inputremove();
+	document.getElementById("table").contentWindow.tdborder();
 	preparation();
 	currentshop = 0;
 	var	elemresult = document.getElementById("result");
@@ -317,6 +319,7 @@ function judgereset(){
 	color:#ffffff;
 	text-align: center;
 	font-size:3vh;
+	font-weight: bold;
 }
 .tdstyle4{
 	height:50%;
@@ -331,7 +334,7 @@ function judgereset(){
 	height:96%;
 	width:96%;
 	padding: 0em 0em;
-	font-size:3vh;
+	font-size:4vh;
 	border: 2px solid #dfdfdf;
 	margin: 0 auto;
 }
@@ -340,7 +343,7 @@ function judgereset(){
 	height:96%;
 	width:96%;
 	padding: 0em 0em;
-	font-size:3vh;
+	font-size:4vh;
 	border: 2px solid #dfdfdf;
 	margin: 0 auto;
 }
