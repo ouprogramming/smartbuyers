@@ -218,8 +218,12 @@ function inputclear(){
 }
 
 function judgereset(){
-	var index = grocerylist.indexOf(currentname);
 	preparation();
+	try{
+		var index = grocerylist.indexOf(currentname);
+	}catch{
+		;
+	}
 	try{
 		elemcurrentcell = document.getElementById();
 		elemcurrentname = document.getElementById();
