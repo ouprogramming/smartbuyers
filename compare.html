@@ -79,7 +79,7 @@ function numCheck(){
 			if(comparablevalue <= previousvaluelist[j]){
 				TFcount += 0
 				document.getElementById("table").contentWindow.color(id0,"#38742A","#9BE585");
-				if(currentshop==j && comparablevalue<=previousvaluelist[j]){
+				if(currentshop==j && comparablevalue<previousvaluelist[j]){
 					var elemupdatecell = document.getElementById("updatecell");
 					elemupdatecell.setAttribute("onclick","update()");
 					elemupdatecell.style.color = "#38742A"
@@ -93,8 +93,10 @@ function numCheck(){
 				elemupdatecell.style.color = "#38742A"
 				elemupdatecell.style.backgroundColor = "#9BE585";
 				elemupdatecell.textContent = "更新";
-			}else{
+			}else if(previousvaluelist[j]!==null){
 				document.getElementById("table").contentWindow.color(id0,"#DA3B26","#EDD1E4");
+				TFcount += 1;
+			}else{
 				TFcount += 1;
 			}
 		}
@@ -307,8 +309,8 @@ function judgereset(){
 }
 .textboxstyle{
 	display: block;
-	height:100%;
-	width:100%;
+	height:96%;
+	width:96%;
 	padding: 0em 0em;
 	font-size:400%;
 	font-size:3vh;
