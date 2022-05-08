@@ -82,6 +82,8 @@ function numCheck(){
 				if(currentshop==j && comparablevalue<=previousvaluelist[j]){
 					var elemupdatecell = document.getElementById("updatecell");
 					elemupdatecell.setAttribute("onclick","update()");
+					elemupdatecell.style.color = "#38742A"
+					elemupdatecell.style.backgroundColor = "#9BE585";
 					elemupdatecell.textContent = "更新";
 				}
 			}else if(currentshop==j && previousvaluelist[j]==null){

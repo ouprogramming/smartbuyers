@@ -12,7 +12,6 @@ function mktable(){
   table.setAttribute("id","table");
   var userlist = JSON.parse(localStorage.getItem('userlist'));
   var username = localStorage.getItem('currentuser');
-  alert(localStorage.getItem('userlist'));
   var grocerydict = userlist[username][2];
   var grocerylist = Object.keys(grocerydict);
   var shoplist0 = userlist[username][1];
