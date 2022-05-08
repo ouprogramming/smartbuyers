@@ -32,7 +32,7 @@ function start(){
 }
 function directinput(shop,name){
 	inputremove();
-	document.getElementById("table").contentWindow.tdborder();
+	document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
 	preparation();
 	var elemname = document.getElementById("name");
 	elemname.value = name;
@@ -43,7 +43,7 @@ function directinput(shop,name){
 
 function nameCheck(){
 	inputremove();
-	document.getElementById("table").contentWindow.tdborder();
+	document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
 	preparation();
 	currentshop = 0;
 	var	elemresult = document.getElementById("result");
@@ -356,7 +356,7 @@ function judgereset(){
 	color:#ffffff;
 	background-color:#404040;
   border: 2px #dfdfdf solid;
-	font-size:2vh;
+	font-size:3vh;
 	border-radius: 5%;
 	text-align: center;
 }
