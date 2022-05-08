@@ -9,9 +9,10 @@ function btn(elem){
 
 function mktable(){
   var table = document.createElement('table');
-  table.setAttribute("id","table")
+  table.setAttribute("id","table");
   var userlist = JSON.parse(localStorage.getItem('userlist'));
   var username = localStorage.getItem('currentuser');
+  alert(localStorage.getItem('userlist'));
   var grocerydict = userlist[username][2];
   var grocerylist = Object.keys(grocerydict);
   var shoplist0 = userlist[username][1];
@@ -121,7 +122,7 @@ function color(id,font,back){
 }
 </style>
 </head>
-<body onload="mktable();">
+<body onload="mktable()">
 <div id="tablebox">
 </div>
 </body>
