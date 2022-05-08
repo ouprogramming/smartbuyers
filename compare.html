@@ -32,7 +32,11 @@ function start(){
 }
 function directinput(shop,name){
 	inputremove();
-	document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
+	try(){
+		document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
+	}catch{
+		;
+	}
 	preparation();
 	var elemname = document.getElementById("name");
 	elemname.value = name;
@@ -43,7 +47,11 @@ function directinput(shop,name){
 
 function nameCheck(){
 	inputremove();
-	document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
+	try(){
+		document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
+	}catch{
+		;
+	}
 	preparation();
 	currentshop = 0;
 	var	elemresult = document.getElementById("result");
