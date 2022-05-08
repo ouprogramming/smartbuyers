@@ -41,9 +41,9 @@ function mktable(){
   var tr0 = document.createElement('tr');
   tr0.appendChild(th0);
   for(var j=1; j<=nos0; j++){
-    if(shoplist1[j]!==""){
+    if(shoplist0[j-1]!==""){
       var th = document.createElement('th');
-      th.textContent = shoplist1[j];
+      th.textContent = shoplist1[j-1];
       th.setAttribute("class","th1style");
       th.setAttribute("id","shop"+j.toString());
       th.setAttribute("width",width1);
