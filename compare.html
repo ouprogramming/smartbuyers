@@ -28,7 +28,7 @@ function start(){
 		}
 	}
 	document.getElementById("selectcell").appendChild(select);
-
+	currentshop = 0;
 }
 function directinput(shop,name){
 	remove();
@@ -232,7 +232,9 @@ function judgereset(){
 		}
 		document.getElementById("table").contentWindow.tdcolor(currentshop.toString()+currentname,"#000000",back);
 		document.getElementById("table").contentWindow.tdcolor("0"+currentname,"#000000",back);
-		document.getElementById("table").contentWindow.thcolor("shop"+currentshop.toString());
+		if (currentshop!==0){
+			document.getElementById("table").contentWindow.thcolor("shop"+currentshop.toString());
+		}
 	}catch{
 		;
 	}
