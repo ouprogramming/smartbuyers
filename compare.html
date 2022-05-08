@@ -12,16 +12,17 @@ function start(){
 	select.setAttribute("class","selectstyle");
 	select.setAttribute("name","shop");
 	preparation();
-	var option = document.createElement('option');
-	option.setAttribute("value","指定なし");
-	option.setAttribute("label","指定なし");
-	select.appendChild(option)
+	var option0 = document.createElement('option');
+	option0.setAttribute("value","指定なし");
+	option0.setAttribute("label","指定なし");
+	option0.selected = true
+	select.appendChild(option0)
 	for(i=0;i<nos0;i++){
 		if(shoplist0[i]!==""){
-			var option = document.createElement('option');
-			option.setAttribute("value",shoplist0[i]);
-			option.setAttribute("label",shoplist0[i]);
-			select.appendChild(option);
+			var option1 = document.createElement('option');
+			option1.setAttribute("value",shoplist0[i]);
+			option1.setAttribute("label",shoplist0[i]);
+			select.appendChild(option1);
 		}
 	}
 	document.getElementById("selectcell").appendChild(select);
