@@ -31,7 +31,7 @@ function start(){
 	currentshop = 0;
 }
 function directinput(shop,name){
-	remove();
+	inputremove();
 	preparation();
 	var elemname = document.getElementById("name");
 	elemname.value = name;
@@ -41,7 +41,7 @@ function directinput(shop,name){
 }
 
 function nameCheck(){
-	remove();
+	inputremove();
 	preparation();
 	currentshop = 0;
 	var	elemresult = document.getElementById("result");
@@ -167,7 +167,7 @@ function register(){
 	basenum1 = Number(document.getElementById("num").value);
 	userlist[username][2][currentname] = [Math.round(basenum1),null,null,null];
 	localStorage.setItem('userlist', JSON.stringify(userlist));
-	remove();
+	inputremove();
 	document.getElementById("table").contentWindow.rmtable();
 	document.getElementById("table").contentWindow.mktable();
 	input();
@@ -177,7 +177,7 @@ function setting(){
 	;
 }
 
-function remove(){
+function inputremove(){
 	judgereset();
 	try{
 		var elemnum = document.getElementById("num");
