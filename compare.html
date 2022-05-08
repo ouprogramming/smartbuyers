@@ -27,9 +27,7 @@ function start(){
 			select.appendChild(option1);
 		}
 	}
-	select.options[0].selected = true
-	selectform.appendChild(select)
-	document.getElementById("selectcell").appendChild(selectform);
+	document.getElementById("selectcell").appendChild(select);
 
 }
 function directinput(shop,name){
@@ -253,8 +251,10 @@ function judgereset(){
 
 </script>
 <style>
-
-.body{
+*{
+	font-family:sans-serif;
+	-webkit-appearance: none;
+  appearance: none;
 	margin:0;
 }
 
@@ -309,6 +309,7 @@ function judgereset(){
 	font-size:400%;
 }
 .selectstyle{
+	margin:0;
 	-webkit-appearance: none;
   appearance: none;
 	height:100%;
