@@ -87,7 +87,6 @@ function numCheck(){
 		for(var j=1;j<=shoplist0.length;j++){
 			var id0 = j.toString()+currentname;
 			if(comparablevalue <= previousvaluelist[j]){
-				TFcount += 0
 				document.getElementById("table").contentWindow.tdcolor(id0,"#38742A","#9BE585");
 				if(currentshop==j && comparablevalue<previousvaluelist[j]){
 					var elemupdatecell = document.getElementById("updatecell");
@@ -105,7 +104,6 @@ function numCheck(){
 				elemupdatecell.textContent = "更新";
 			}else if(previousvaluelist[j]!==null){
 				document.getElementById("table").contentWindow.tdcolor(id0,"#DA3B26","#EDD1E4");
-				TFcount += 1;
 			}else{
 				TFcount += 1;
 			}
