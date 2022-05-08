@@ -218,9 +218,23 @@ function inputclear(){
 }
 
 function judgereset(){
+	var index = grocerylist.indexOf(currentname);
+	preparation();
 	try{
-		preparation();
-		index = grocerylist.indexOf(currentname);
+		elemcurrentcell = document.getElementById();
+		elemcurrentname = document.getElementById();
+		elemcurrentshop = document.getElementById("shop"+currentshop);
+		if (index%2 ==0){
+			back = "#ffffff";
+		}else{
+			back = "#dfdfdf";
+		}
+		document.getElementById("table").contentWindow.tdcolor(currentshop.toString()+currentname,"#000000",back);
+		document.getElementById("table").contentWindow.thcolor("shop"+currentshop);
+	}catch{
+		;
+	}
+	try{
 		if (index%2 ==0){
 			back = "#ffffff";
 		}else{
@@ -228,7 +242,7 @@ function judgereset(){
 		}
 		for(var j=1;j<=nos0;j++){
 			var id1 = j.toString()+currentname;
-			document.getElementById("table").contentWindow.color(id1,"#000000",back);
+			document.getElementById("table").contentWindow.tdcolor(id1,"#000000",back);
 		}
 	}catch{
 		;
@@ -314,6 +328,8 @@ function judgereset(){
 	padding: 0em 0em;
 	font-size:400%;
 	font-size:3vh;
+	border: 2px solid #dfdfdf;
+	text-align: center;
 }
 .boxstyle{
 	display: block;
@@ -333,6 +349,7 @@ function judgereset(){
   border: 2px #dfdfdf solid;
 	font-size:2vh;
 	border-radius: 5%;
+	text-align: center;
 }
 .cellbox{
 	width:96%;

@@ -4,6 +4,8 @@
 <script>
 function btn(elem){
   var elemid=elem.id;
+  elem.style.color = "#0000FF";
+  elem.style.backgroundColor = "＃B7DAF5";
   window.parent.directinput(elemid.substr(0,1),elemid.substr(1));
 }
 
@@ -22,16 +24,17 @@ function mktable(){
   var nos1 = shoplist1.length;
   var width1 = 60/nos1.toString() + "%";
   table.setAttribute("cellspacing","0");
-  table.setAttribute("cellpadding","0");
   var th0 = document.createElement('th');
   th0.textContent = "品名";
   th0.setAttribute("class","th0style");
+  th0.setAttribute("id","");
   var tr0 = document.createElement('tr');
   tr0.appendChild(th0);
   for(var j=0; j< nos1; j++){
     var th = document.createElement('th');
     th.textContent = shoplist1[j];
     th.setAttribute("class","th1style");
+    th.setAttribute("id",shoplist1[j]);
     th.setAttribute("width",width1);
     tr0.appendChild(th);
   }
