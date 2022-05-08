@@ -15,7 +15,6 @@ function start(){
 	var option0 = document.createElement('option');
 	option0.setAttribute("value","指定なし");
 	option0.setAttribute("label","指定なし");
-	option0.selected = true
 	select.appendChild(option0)
 	for(i=0;i<nos0;i++){
 		if(shoplist0[i]!==""){
@@ -25,6 +24,7 @@ function start(){
 			select.appendChild(option1);
 		}
 	}
+	select.options[0].selected = true
 	document.getElementById("selectcell").appendChild(select);
 }
 function directinput(shop,name){
@@ -304,12 +304,15 @@ function judgereset(){
 	font-size:400%;
 }
 .selectstyle{
+	-webkit-appearance: none;
+  appearance: none;
 	height:100%;
 	width:100%;
 	color:#ffffff;
 	background-color:#404040;
   border: 2px #dfdfdf solid;
 	font-size:2vh;
+
 }
 
 </style>
