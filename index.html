@@ -11,6 +11,7 @@ function login(){
 	var pass = document.getElementById("password");
 	var username = user.value;
 	var password = pass.value;
+	alert("before");
 	$.getJSON("data.js", (data) => {
 		var userdict = JSON.parse(data);
 		alert("jsonOK");
@@ -30,6 +31,7 @@ function login(){
 			window.location.href = 'setting.html';
   	}
 	});
+	alert("after");
 }
 </script>
 <style>
