@@ -13,7 +13,7 @@ function login(){
 	var password = pass.value;
 	$.getJSON("data.js", (data) => {
 		var userdict = JSON.parse(data);
-		alert("jsonOK")
+		alert("jsonOK");
 		var namelist = Object.keys(userdict);
 		if(namelist.indexOf(username) !== -1){
 			if(userdict[username][0]==password){
