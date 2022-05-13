@@ -13,7 +13,7 @@ function login(){
 	var password = pass.value;
 	var url = 'https://ouprogramming.github.io/smartbuyers/data.json';
 	$.getJSON(url, function(data){
-		var userdict = data;
+		;
 	})
 	.success(function(json) {
     console.log("成功");
@@ -25,6 +25,7 @@ function login(){
 	.complete(function() {
     console.log("完了");
 	});
+	var userdict = data;
 	var namelist = Object.keys(userdict);
 	if(namelist.indexOf(username) !== -1){
 		if(userdict[username][0]==password){
