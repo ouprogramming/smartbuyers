@@ -3,37 +3,32 @@
 <head>
 <meta charset="UTF-8">
 <title>smartbuyer</title>
-<script type="text/javascript">
-function start(){
-	if (localStorage.getItem('first')=="False"){
-	}else {
-		localStorage.setItem('first',"False");
-		var newdict = {"manager":["ouprogramming",["C","N","S"],{"豚肉":[100,100,120,130],"玉ねぎ":[4,100,120,130]}]};
-		localStorage.setItem('userlist', JSON.stringify(newdict));
- 	}
-}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script language="javascript" type="text/javascript">
+
 function login(){
 	var user = document.getElementById("username");
 	var pass = document.getElementById("password");
 	var username = user.value;
 	var password = pass.value;
-	var userlist = JSON.parse(localStorage.getItem('userlist'));
-	var namelist = Object.keys(userlist);
-	if(namelist.indexOf(username) !== -1){
-		if(userlist[username][0]==password){
-			localStorage.setItem('currentuser', username);
-			window.location.href = 'compare.html';
+	$.getJSON("data.js", (data) => {
+		var userdict = JSON.parse(data);
+		var namelist = Object.keys(userdict);
+		if(namelist.indexOf(username) !== -1){
+			if(userdict[username][0]==password){
+				localStorage.setItem('currentuser', username);
+				window.location.href = 'compare.html';
+			}else{
+				alert("ログインに失敗しました。\nもしくは既に使われているユーザーネームです。");
+			}
 		}else{
-			alert("ログインに失敗しました。\nもしくは既に使われているユーザーネームです。");
-		}
-	}else{
-		userlist[username] = [password,[],{}];
-		alert("新規登録に成功しました。");
-		localStorage.setItem('currentuser', username);
-		localStorage.setItem('userlist', JSON.stringify(userlist));
-		window.location.href = 'setting.html';
-
-	}
+			userdict[username] = [password,[],{}];
+			alert("新規登録に成功しました。");
+			localStorage.setItem('currentuser', username);
+			localStorage.setItem('userdict', JSON.stringify(userdict));
+			window.location.href = 'setting.html';
+  	}
+	});
 }
 </script>
 <style>
@@ -80,7 +75,7 @@ function login(){
 }
 </style>
 </head>
-<body onLoad="start();">
+<body>
 <header>
 </header>
 <input type="text" class="textboxstyle" id="username"></input>
