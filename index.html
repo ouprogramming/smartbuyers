@@ -14,7 +14,6 @@ function login(){
 	var url = 'https://ouprogramming.github.io/smartbuyers/data.json';
 	$.getJSON(url, function(data){
 		var userdict = data;
-  	console.log('data : ', data);
 	});
 	var namelist = Object.keys(userdict);
 	if(namelist.indexOf(username) !== -1){
