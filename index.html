@@ -11,7 +11,7 @@ function login(){
 	var pass = document.getElementById("password");
 	var username = user.value;
 	var password = pass.value;
-	var url = 'https://ouprogramming.github.io/smartbuyers/data.json';
+	var url = "data.json";
 	$.getJSON(url, function(data){
 		var userdict = data;
 		var namelist = Object.keys(userdict);
