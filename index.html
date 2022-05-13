@@ -12,7 +12,7 @@ function login(){
 	var username = user.value;
 	var password = pass.value;
 	alert("before");
-	$.getJSON("data.js", (data) => {
+	$.getJSON("https://ouprogramming.github.io/smartbuyers/data.js", (data) => {
 		var userdict = JSON.parse(data);
 		alert("jsonOK");
 		var namelist = Object.keys(userdict);
