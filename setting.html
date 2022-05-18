@@ -4,7 +4,6 @@
 <script>
 function start(){
 
-
 }
 function register(){
 	var shoplist = [];
@@ -15,7 +14,7 @@ function register(){
 	}
 	var username = localStorage.getItem('currentuser');
 	var userlist = JSON.parse(localStorage.getItem('userlist'));
-	userlist[username][1]=shoplist;
+	userlist[0]=shoplist;
 	alert(JSON.stringify(userlist))
 	localStorage.setItem('userlist', JSON.stringify(userlist));
 }
