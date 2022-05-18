@@ -10,7 +10,7 @@ function start(){
 	try{
 		localStorage.getItem('userdict');
 	}catch{
-		var userdict = [{"","",""},{}]
+		var userdict = [["","",""],{}];
 		localStorage.setItem('userdict', JSON.stringify(userdict));
 	}
 	var selectform = document.createElement('form');
@@ -134,13 +134,13 @@ function numCheck(){
 
 function preparation(){
 	userdict = JSON.parse(localStorage.getItem('userdict'));
-	shoplist0 = userdict[username][0];
+	shoplist0 = userdict[0];
   nos0 = shoplist0.length;
   shoplist1 = shoplist0.filter(function( item ) {
     return item !== "";
   });
   nos1 = shoplist1.length;
-	grocerydict =  userdict[username][1];
+	grocerydict =  userdict[1];
 	grocerylist = Object.keys(grocerydict);
 }
 
