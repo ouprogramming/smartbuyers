@@ -81,8 +81,8 @@ function numCheck(){
 	inputnum = Number(document.getElementById("num").value);
 	if (inputvalue !== 0 && inputnum !== 0){
 		preparation();
-		basenum0 = userlist[username][2][currentname][0];
-		previousvaluelist = userlist[username][2][currentname];
+		basenum0 = userdict[username][2][currentname][0];
+		previousvaluelist = userdict[username][2][currentname];
 		comparablevalue = (inputvalue*basenum0)/inputnum;
 		var TFcount = 0;
 		for(var j=1;j<=shoplist0.length;j++){
@@ -127,15 +127,15 @@ function numCheck(){
 }
 
 function preparation(){
-	userlist = JSON.parse(localStorage.getItem('userlist'));
+	userdict = JSON.parse(localStorage.getItem('userdict'));
   username = localStorage.getItem('currentuser');
-	shoplist0 = userlist[username][1];
+	shoplist0 = userdict[username][1];
   nos0 = shoplist0.length;
   shoplist1 = shoplist0.filter(function( item ) {
     return item !== "";
   });
   nos1 = shoplist1.length;
-	grocerydict =  userlist[username][2];
+	grocerydict =  userdict[username][2];
 	grocerylist = Object.keys(grocerydict);
 }
 
@@ -162,10 +162,10 @@ function input(){
 
 function update(){
 	alert("update");
-	userlist = JSON.parse(localStorage.getItem('userlist'));
+	userdict = JSON.parse(localStorage.getItem('userdict'));
   username = localStorage.getItem('currentuser');
-	userlist[username][2][currentname][currentshop] = Math.round(comparablevalue);
-	localStorage.setItem('userlist', JSON.stringify(userlist));
+	userdict[username][2][currentname][currentshop] = Math.round(comparablevalue);
+	localStorage.setItem('userdict', JSON.stringify(userdict));
 	document.getElementById("table").contentWindow.rmtable();
 	document.getElementById("table").contentWindow.mktable();
 }
@@ -173,11 +173,11 @@ function update(){
 
 function register(){
 	alert("register");
-	userlist = JSON.parse(localStorage.getItem('userlist'));
+	userdict = JSON.parse(localStorage.getItem('userdict'));
   username = localStorage.getItem('currentuser');
 	basenum1 = Number(document.getElementById("num").value);
-	userlist[username][2][currentname] = [Math.round(basenum1),null,null,null];
-	localStorage.setItem('userlist', JSON.stringify(userlist));
+	userdict[username][2][currentname] = [Math.round(basenum1),null,null,null];
+	localStorage.setItem('userdict', JSON.stringify(userdict));
 	inputremove();
 	document.getElementById("table").contentWindow.rmtable();
 	document.getElementById("table").contentWindow.mktable();

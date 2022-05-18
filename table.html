@@ -24,11 +24,11 @@ function btn(elemcurrent){
 function mktable(){
   var table = document.createElement('table');
   table.setAttribute("id","table");
-  var userlist = JSON.parse(localStorage.getItem('userlist'));
+  var userdict = JSON.parse(localStorage.getItem('userdict'));
   var username = localStorage.getItem('currentuser');
-  var grocerydict = userlist[username][2];
+  var grocerydict = userdict[username][2];
   var grocerylist = Object.keys(grocerydict);
-  var shoplist0 = userlist[username][1];
+  var shoplist0 = userdict[username][1];
   var shoplist1 = shoplist0.filter(function( item ) {
     return item !== "";
   });

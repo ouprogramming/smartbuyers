@@ -2,46 +2,294 @@
 <html lang="ja">
 <head>
 <meta charset="UTF-8">
-<title>smartbuyer</title>
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-<script language="javascript" type="text/javascript">
+<title>compare</title>
 
-function login(){
-	var user = document.getElementById("username");
-	var pass = document.getElementById("password");
-	var username = user.value;
-	var password = pass.value;
-	var url = "data.json";
-	$.getJSON(url, function(data){
-		var userdict = data;
-		var namelist = Object.keys(userdict);
-		if(namelist.indexOf(username) !== -1){
-			if(userdict[username][0]==password){
-				localStorage.setItem('currentuser', username);
-				window.location.href = 'compare.html';
-			}else{
-				alert("ログインに失敗しました。\nもしくは既に使われているユーザーネームです。");
-			}
-		}else{
-			userdict[username] = [password,[],{}];
-			alert("新規登録に成功しました。");
-			localStorage.setItem('currentuser', username);
-			localStorage.setItem('userdict', JSON.stringify(userdict));
-			window.location.href = 'setting.html';
+<script type="text/javascript">
+//basenum設定
+function start(){
+	try{
+		localStorage.getItem('userdict');
+	}catch{
+		var userdict = [{"","",""},{}]
+		localStorage.setItem('userdict', JSON.stringify(userdict));
+	}
+	var selectform = document.createElement('form');
+	var select = document.createElement('select');
+	select.setAttribute("id","select");
+	select.setAttribute("class","selectstyle");
+	select.setAttribute("name","shop");
+	preparation();
+	var option0 = document.createElement('option');
+	option0.setAttribute("value","指定なし");
+	option0.setAttribute("label","指定なし");
+	option0.textContent = "指定なし";
+	select.appendChild(option0);
+	for(i=0;i<nos0;i++){
+		if(shoplist0[i]!==""){
+			var option1 = document.createElement('option');
+			option1.setAttribute("value",shoplist0[i]);
+			option1.setAttribute("label",shoplist0[i]);
+			option1.textContent = shoplist0[i];
+			select.appendChild(option1);
 		}
-	})
-	.success(function(json) {
-    console.log("成功");
-	})
-	.error(function(jqXHR, textStatus, errorThrown) {
-    console.log("エラー：" + textStatus);
-    console.log("テキスト：" + jqXHR.responseText);
-	})
-	.complete(function() {
-    console.log("完了");
-	});
-	alert("after");
+	}
+	document.getElementById("selectcell").appendChild(select);
+	currentshop = 0;
 }
+
+function directinput(shop,name){
+	inputremove();
+	try{
+		document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
+	}catch{
+		;
+	}
+	preparation();
+	var elemname = document.getElementById("name");
+	elemname.value = name;
+	currentname = name;
+	currentshop = Number(shop);
+	input();
+}
+
+function nameCheck(){
+	inputremove();
+	try{
+		document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
+	}catch{
+		;
+	}
+	preparation();
+	currentshop = 0;
+	var	elemresult = document.getElementById("result");
+	var inputname = document.getElementById("name").value;
+	currentname = inputname;
+	if(grocerylist.indexOf(inputname) == -1){
+		var elemupdatecell = document.getElementById("updatecell");
+		elemupdatecell.setAttribute("onclick","register()");
+		elemupdatecell.textContent = "追加";
+		elemupdatecell.style.color = "#38742A"
+		elemupdatecell.style.backgroundColor = "#9BE585";
+		var elemnum = document.createElement("input");
+		elemnum.setAttribute("type","number");
+		elemnum.setAttribute("class","textboxstyle2");
+		elemnum.setAttribute("id","num");
+		elemnum.setAttribute("placeholder","個/g");
+		var elemnumcell = document.getElementById("numcell");
+		elemnumcell.appendChild(elemnum);
+	}else{
+		input();
+	}
+}
+function numCheck(){
+	resultTF = true
+	inputvalue = Number(document.getElementById("value").value);
+	inputnum = Number(document.getElementById("num").value);
+	if (inputvalue !== 0 && inputnum !== 0){
+		preparation();
+		basenum0 = userdict[username][2][currentname][0];
+		previousvaluelist = userdict[username][2][currentname];
+		comparablevalue = (inputvalue*basenum0)/inputnum;
+		var TFcount = 0;
+		for(var j=1;j<=shoplist0.length;j++){
+			var id0 = j.toString()+currentname;
+			if(comparablevalue <= previousvaluelist[j]){
+				document.getElementById("table").contentWindow.tdcolor(id0,"#38742A","#9BE585");
+				if(currentshop==j && comparablevalue<previousvaluelist[j]){
+					var elemupdatecell = document.getElementById("updatecell");
+					elemupdatecell.setAttribute("onclick","update()");
+					elemupdatecell.style.color = "#38742A"
+					elemupdatecell.style.backgroundColor = "#9BE585";
+					elemupdatecell.textContent = "更新";
+				}
+			}else if(currentshop==j && previousvaluelist[j]==null){
+				document.getElementById("table").contentWindow.tdcolor(id0,"#38742A","#9BE585");
+				var elemupdatecell = document.getElementById("updatecell");
+				elemupdatecell.setAttribute("onclick","update()");
+				elemupdatecell.style.color = "#38742A"
+				elemupdatecell.style.backgroundColor = "#9BE585";
+				elemupdatecell.textContent = "更新";
+			}else if(previousvaluelist[j]!==null){
+				document.getElementById("table").contentWindow.tdcolor(id0,"#DA3B26","#EDD1E4");
+			}else{
+				TFcount += 1;
+			}
+		}
+		elemresult = document.getElementById("result");
+		if(TFcount==0){
+			elemresult.style.color = "#38742A";
+			elemresult.style.backgroundColor = "#9BE585";
+			elemresult.textContent = "◯";
+		}else if(TFcount > 0 && TFcount < nos0){
+			elemresult.style.color = "#F27200";
+			elemresult.style.backgroundColor = "#F7F1AC";
+			elemresult.textContent = "△";
+		}else{
+			elemresult.style.color = "#DA3B26";
+			elemresult.style.backgroundColor = "#EDD1E4";
+			elemresult.textContent = "×";
+		}
+	}
+}
+
+function preparation(){
+	userdict = JSON.parse(localStorage.getItem('userdict'));
+	shoplist0 = userdict[username][0];
+  nos0 = shoplist0.length;
+  shoplist1 = shoplist0.filter(function( item ) {
+    return item !== "";
+  });
+  nos1 = shoplist1.length;
+	grocerydict =  userdict[username][1];
+	grocerylist = Object.keys(grocerydict);
+}
+
+function input(){
+	inputvalue = 0;
+	inputnum = 1;
+	var elemvalue = document.createElement("input");
+	var elemnum = document.createElement("input");
+	elemvalue.setAttribute("type","number");
+	elemnum.setAttribute("type","number");
+	elemvalue.setAttribute("class","textboxstyle2");
+	elemnum.setAttribute("class","textboxstyle2");
+	elemvalue.setAttribute("id","value");
+	elemnum.setAttribute("id","num");
+	elemvalue.setAttribute("onkeyup","numCheck()");
+	elemnum.setAttribute("onkeyup","numCheck()");
+	elemvalue.setAttribute("placeholder","値段");
+	elemnum.setAttribute("placeholder","個/g");
+	elemvaluecell = document.getElementById("valuecell");
+	elemnumcell = document.getElementById("numcell");
+	elemvaluecell.appendChild(elemvalue);
+	elemnumcell.appendChild(elemnum);
+}
+
+function update(){
+	alert("update");
+	userdict = JSON.parse(localStorage.getItem('userdict'));
+	userdict[1][currentname][currentshop] = Math.round(comparablevalue);
+	localStorage.setItem('userdict', JSON.stringify(userdict));
+	document.getElementById("table").contentWindow.rmtable();
+	document.getElementById("table").contentWindow.mktable();
+}
+
+
+function register(){
+	alert("register");
+	userdict = JSON.parse(localStorage.getItem('userdict'));
+	basenum1 = Number(document.getElementById("num").value);
+	userdict[1][currentname] = [Math.round(basenum1),null,null,null];
+	localStorage.setItem('userdict', JSON.stringify(userdict));
+	inputremove();
+	document.getElementById("table").contentWindow.rmtable();
+	document.getElementById("table").contentWindow.mktable();
+	input();
+}
+
+function setting(){
+	;
+}
+
+function inputremove(){
+	judgereset();
+	try{
+		var elemnum = document.getElementById("num");
+		elemnum.setAttribute("value",0);
+		elemnum.remove();
+	}catch{
+		;
+	}
+	try{
+		var elemvalue = document.getElementById("value");
+		elemvalue.setAttribute("value",0);
+		elemvalue.remove();
+	}catch{
+		;
+	}
+}
+
+function inputclear(){
+	judgereset();
+	try{
+		document.getElementById("table").contentWindow.tdborder(currentshop.toString()+currentname);
+	}catch{
+		;
+	}
+	try{
+		var elemname = document.getElementById("name")
+		elemname.value = "";
+	}catch{
+		;
+	}
+	try{
+		var elemvalue = document.getElementById("value")
+		elemvalue.value = "";
+	}catch{
+		;
+	}
+	try{
+		var elemnum = document.getElementById("num")
+		elemnum.value = "";
+	}catch{
+		;
+	}
+}
+
+function judgereset(){
+	preparation();
+	try{
+		var index = grocerylist.indexOf(currentname);
+	}catch{
+		;
+	}
+	try{
+		if (index%2 ==0){
+			back = "#ffffff";
+		}else{
+			back = "#dfdfdf";
+		}
+		document.getElementById("table").contentWindow.tdcolor(currentshop.toString()+currentname,"#000000",back);
+		document.getElementById("table").contentWindow.tdcolor("0"+currentname,"#000000",back);
+		if (currentshop!==0){
+			document.getElementById("table").contentWindow.thcolor("shop"+currentshop.toString());
+		}
+	}catch{
+		;
+	}
+	try{
+		if (index%2 ==0){
+			back = "#ffffff";
+		}else{
+			back = "#dfdfdf";
+		}
+		for(var j=1;j<=nos0;j++){
+			var id1 = j.toString()+currentname;
+			document.getElementById("table").contentWindow.tdcolor(id1,"#000000",back);
+		}
+	}catch{
+		;
+	}
+	try{
+		var elemupdatecell = document.getElementById("updatecell");
+		elemupdatecell.style.color = "#ffffff";
+		elemupdatecell.style.backgroundColor = "#404040";
+		elemupdatecell.textContent = "";
+		elemupdatecell.setAttribute("onclick","");
+	}catch{
+		;
+	}
+	try{
+		var elemresult = document.getElementById("result");
+		elemresult.style.color = "#ffffff";
+		elemresult.style.backgroundColor = "#404040";
+		elemresult.textContent = "";
+	}catch{
+		;
+	}
+}
+
+
 </script>
 <style>
 *{
@@ -50,48 +298,124 @@ function login(){
   appearance: none;
 	margin:0;
 }
+
 .tablestyle1{
 	height:20vh;
-	width:100vw;
-	padding:0em;
+	width:100%;
+	padding: 0em;
 	table-layout: fixed;
+	color:#000000;
+	background-color: #404040;
+	margin: 0 auto;
 }
 .tablestyle2{
 	height:80vh;
-	width:100vw;
-	padding:0em;
+	width:100%;
+	padding: 0em;
+	border:none;
+	border-top: 1px solid #dfdfdf;
+	margin: 0 auto;
 }
 .tdstyle1{
-	height:100%;
-	width:50%;
-	padding:0em;
+	height:50%;
+	width:40%;
+	padding: 0em;
+	text-align: center;
+	margin: 0 auto;
 }
 .tdstyle2{
-	height:100%;
-	width:(50/3)%;
+	height:50%;
+	width:20%;
 	padding:0em;
+	text-align: center;
+	font-size:3vh;
+	margin: 0 auto;
 }
-.textboxstyle{
+.tdstyle3{
+	height:50%;
+	width:20%;
+	padding:0em;
+	color:#ffffff;
+	text-align: center;
+	font-size:3vh;
+	margin: 0 auto;
+}
+.tdstyle4{
+	height:50%;
+	width:40%;
+	padding:0em;
+	color:#ffffff;
+	font-size:3vh;
+	text-align: center;
+	margin: 0 auto;
+}
+.textboxstyle1{
 	display: block;
-	height:20%;
-	width:100%;
+	height:96%;
+	width:98%;
 	padding: 0em 0em;
-	font-size:400%;
+	font-size:4vh;
+	border: 1px solid #dfdfdf;
+	margin: 0 auto;
 }
-.buttonstyle{
+.textboxstyle2{
 	display: block;
-	height:20%;
-	width:100%;
+	height:96%;
+	width:98%;
 	padding: 0em 0em;
-	font-size:400%;
+	font-size:4vh;
+	border: 1px solid #dfdfdf;
+	margin: 0 auto;
+	text-align: right;
 }
+.selectstyle{
+	margin:0;
+	-webkit-appearance: none;
+  appearance: none;
+	height:96%;
+	width:98%;
+	color:#ffffff;
+	background-color:#404040;
+  border: 2px #dfdfdf solid;
+	font-size:3vh;
+	border-radius: 5%;
+	text-align: left;
+}
+
+.cellbox{
+	width:96%;
+	height:96%;
+	border: 2px solid #dfdfdf;
+	text-align: center;
+	border-radius: 5%;
+	display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+::placeholder{
+	text-align: left;
+}
+
 </style>
 </head>
-<body>
+<body onload="start()">
 <header>
+<table class="tablestyle1">
+<tr>
+<td class="tdstyle4" id="selectcell"></td>
+<td class="tdstyle3" id="settingcell" onclick="setting()"><div class="cellbox">設定</div></td>
+<td class="tdstyle3" id="clearcell" onclick="inputclear()"><div class="cellbox">クリア</div></td>
+<td class="tdstyle3" id="updatecell"></td>
+</tr>
+<tr>
+<td class="tdstyle1"><input type="text" class="textboxstyle1" id="name" onkeyup="nameCheck()" placeholder="商品名"></input></td>
+<td class="tdstyle2" id="valuecell"></input></td>
+<td class="tdstyle2" id="numcell"></input></td>
+<td class="tdstyle2" id="result"></td>
+</tr>
+</table>
 </header>
-<input type="text" class="textboxstyle" id="username"></input>
-<input type="text" class="textboxstyle" id="password"></input>
-<button type="button" class="buttonstyle" onclick="login();">ログイン/新規登録</button>
+<iframe src="table.html" class="tablestyle2" id="table"></iframe>
 </body>
 </html>

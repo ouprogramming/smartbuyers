@@ -1,14 +1,25 @@
+<!DOCTYPE html>
 <html>
-<head>
-<title></title>
-<script>
-function start(){
-  var a = "";
-  alert(Number(a));
-}
-</script>
-</head>
-<body onload="start();">
-
-</body>
+	<head>
+		<meta charset="utf-8">
+		<title>Sample</title>
+		<script src="https://smtpjs.com/v3/smtp.js"></script>
+		<script type="text/javascript">
+		Email.send({
+    Host : "smtp.elasticemail.com",
+    Username : "ouprogram2022@gmail.com",
+    Password : "06492C976163C1F2C60717C5EE64489D5795",
+    To : 'ouprogram2022@gmail.com',
+    From : "ouprogram2022@gmail.com",
+    Subject : "タイトル",
+    Body : "本文"
+}).then(
+  message => alert(message)
+);
+    </script>
+	</head>
+	<body>
+		<h3>Indexed DBが使用できるか調べる</h3>
+		<output></output>
+	</body>
 </html>
