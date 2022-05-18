@@ -13,10 +13,10 @@ function register(){
 		shoplist[i] = shopname;
 	}
 	var username = localStorage.getItem('currentuser');
-	var userlist = JSON.parse(localStorage.getItem('userlist'));
-	userlist[0]=shoplist;
-	alert(JSON.stringify(userlist))
-	localStorage.setItem('userlist', JSON.stringify(userlist));
+	var userdict = JSON.parse(localStorage.getItem('userdict'));
+	userdict[0]=shoplist;
+	alert(JSON.stringify(userdict))
+	localStorage.setItem('userdict', JSON.stringify(userdict));
 }
 
 </script>
