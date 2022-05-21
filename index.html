@@ -35,7 +35,7 @@ function start(){
 		}
 		document.getElementById("selectcell").appendChild(select);
 		currentshop = 0;
-	}	
+	}
 }
 
 function directinput(shop,name){
@@ -78,58 +78,69 @@ function nameCheck(){
 		elemnum.setAttribute("placeholder","個/g");
 		var elemnumcell = document.getElementById("numcell");
 		elemnumcell.appendChild(elemnum);
+	}else if(userdict[1][currentname][0] == 0){
+		judgment();
 	}else{
 		input();
 	}
 }
+
 function numCheck(){
 	resultTF = true
 	inputvalue = Number(document.getElementById("value").value);
 	inputnum = Number(document.getElementById("num").value);
 	if (inputvalue !== 0 && inputnum !== 0){
 		preparation();
-		basenum0 = userdict[username][2][currentname][0];
-		previousvaluelist = userdict[username][2][currentname];
-		comparablevalue = (inputvalue*basenum0)/inputnum;
-		var TFcount = 0;
-		for(var j=1;j<=shoplist0.length;j++){
-			var id0 = j.toString()+currentname;
-			if(comparablevalue <= previousvaluelist[j]){
-				document.getElementById("table").contentWindow.tdcolor(id0,"#38742A","#9BE585");
-				if(currentshop==j && comparablevalue<previousvaluelist[j]){
-					var elemupdatecell = document.getElementById("updatecell");
-					elemupdatecell.setAttribute("onclick","update()");
-					elemupdatecell.style.color = "#38742A"
-					elemupdatecell.style.backgroundColor = "#9BE585";
-					elemupdatecell.textContent = "更新";
-				}
-			}else if(currentshop==j && previousvaluelist[j]==null){
-				document.getElementById("table").contentWindow.tdcolor(id0,"#38742A","#9BE585");
+		basenum0 = userdict[1][currentname][0];
+		previousvaluelist = userdict[1][currentname];
+		if(basenum0 != 0){
+			comparablevalue = (inputvalue*basenum0)/inputnum;
+		}else{
+			comparablevalue = inputvalue;
+		}
+		judgment();
+	}
+}
+
+function judgment(){
+	var TFcount = 0;
+	for(var j=1;j<=shoplist0.length;j++){
+		var id0 = j.toString()+currentname;
+		if(comparablevalue <= previousvaluelist[j]){
+			document.getElementById("table").contentWindow.tdcolor(id0,"#38742A","#9BE585");
+			if(currentshop==j && comparablevalue<previousvaluelist[j]){
 				var elemupdatecell = document.getElementById("updatecell");
 				elemupdatecell.setAttribute("onclick","update()");
 				elemupdatecell.style.color = "#38742A"
 				elemupdatecell.style.backgroundColor = "#9BE585";
 				elemupdatecell.textContent = "更新";
-			}else if(previousvaluelist[j]!==null){
-				document.getElementById("table").contentWindow.tdcolor(id0,"#DA3B26","#EDD1E4");
-			}else{
-				TFcount += 1;
 			}
-		}
-		elemresult = document.getElementById("result");
-		if(TFcount==0){
-			elemresult.style.color = "#38742A";
-			elemresult.style.backgroundColor = "#9BE585";
-			elemresult.textContent = "◯";
-		}else if(TFcount > 0 && TFcount < nos0){
-			elemresult.style.color = "#F27200";
-			elemresult.style.backgroundColor = "#F7F1AC";
-			elemresult.textContent = "△";
+		}else if(currentshop==j && previousvaluelist[j]==null){
+			document.getElementById("table").contentWindow.tdcolor(id0,"#38742A","#9BE585");
+			var elemupdatecell = document.getElementById("updatecell");
+			elemupdatecell.setAttribute("onclick","update()");
+			elemupdatecell.style.color = "#38742A"
+			elemupdatecell.style.backgroundColor = "#9BE585";
+			elemupdatecell.textContent = "更新";
+		}else if(previousvaluelist[j]!==null){
+			document.getElementById("table").contentWindow.tdcolor(id0,"#DA3B26","#EDD1E4");
 		}else{
-			elemresult.style.color = "#DA3B26";
-			elemresult.style.backgroundColor = "#EDD1E4";
-			elemresult.textContent = "×";
+			TFcount += 1;
 		}
+	}
+	elemresult = document.getElementById("result");
+	if(TFcount==0){
+		elemresult.style.color = "#38742A";
+		elemresult.style.backgroundColor = "#9BE585";
+		elemresult.textContent = comparablevalue.round();
+	}else if(TFcount > 0 && TFcount < nos0){
+		elemresult.style.color = "#F27200";
+		elemresult.style.backgroundColor = "#F7F1AC";
+		elemresult.textContent = comparablevalue.round();
+	}else{
+		elemresult.style.color = "#DA3B26";
+		elemresult.style.backgroundColor = "#EDD1E4";
+		elemresult.textContent = comparablevalue.round();
 	}
 }
 
@@ -180,6 +191,9 @@ function register(){
 	alert("register");
 	userdict = JSON.parse(localStorage.getItem('userdict'));
 	basenum1 = Number(document.getElementById("num").value);
+	if(bacenum1<=0){
+		basenum1 = 0;
+	}
 	userdict[1][currentname] = [Math.round(basenum1),null,null,null];
 	localStorage.setItem('userdict', JSON.stringify(userdict));
 	inputremove();

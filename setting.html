@@ -49,15 +49,15 @@ function register(){
 	padding:0em;
 }
 .textboxstyle{
-	height:20%;
+	height:10%;
 	width:80%;
 	padding: 0em 0em;
-	font-size:400%;
+	font-size:200%;
 	display: inline-block;
 }
 .buttonstyle{
 	display: block;
-	height:15%;
+	height:10%;
 	width:60%;
 	padding: 0em 0em;
 	font-size:400%;
@@ -70,12 +70,18 @@ function register(){
 	display: inline-block;
 }
 .subjectbox{
-	height:15%;
+	height:10%;
 	width:60%;
 	padding: 0em 0em;
 	font-size:400%;
 	text-align: center;
 	margin: 0 auto;
+}
+.treatment{
+	background-color:#dfdfdf;
+	width:80%;
+	margin: 0 auto;
+	font-size:100%;
 }
 </style>
 </head>
@@ -86,5 +92,68 @@ function register(){
 <div><p class="shopnum">店舗3</p><input type="text" class="textboxstyle" id="shop3"></input></div>
 <br>
 <button type="button" onclick="register();" class="buttonstyle">登録</button>
+<br>
+<div class="treatment">
+<ul>
+	<li>店舗の設定
+		<ul>
+			<li>このページのテキストボックスで店舗名を入力してください</li>
+			<li>「登録」ボタンを押すと登録されます。</li>
+		</ul>
+	</li>
+	<li>商品の追加
+		<ul>
+			<li>画面上部のテキストボックスに商品名を入力してください</li>
+			<li>比較する個数/g数を入力してください
+				<ul>
+					<li>1個で比較する場合は「1」,100gで比較する場合は「100」です</li>
+					<li>個数が固定の商品は何も入力しないでください</li>
+				</ul>
+			</li>
+			<li>新しい商品の場合追加ボタンが表示されるので押してください。</li>
+		</ul>
+	</li>
+	<li>値段の比較　方法1
+		<ul>
+			<li>画面上部のテキストボックスに商品名を入力してください</li>
+			<li>続いて値段と個数/g数を入力してください</li>
+			<li>判定結果が出ます　判定の見方は後にあります</li>
+		</ul>
+	</li>
+	<li>値段の比較　方法2
+		<ul>
+			<li>一覧表の商品名を押してください</li>
+			<li>続いて画面上部に値段と個数/g数を入力してください</li>
+			<li>判定結果が出ます　判定の見方は後にあります</li>
+		</ul>
+	</li>
+	<li>値段の比較　方法3
+		<ul>
+			<li>一覧表で現在の店舗の値段のマスを押してください</li>
+			<li>続いて画面上部に値段と個数/g数を入力してください</li>
+			<li>判定結果が出ます　判定の見方は方法1と同じです</li>
+			<li>判定結果が出ます　判定の見方は後にあります</li>
+		</ul>
+	</li>
+	<li>判定の見方　画面上部
+		<ul>
+			<li>緑ならば全店舗より安いです</li>
+			<li>黄ならば安い店舗もあれば高い店舗もあります</li>
+			<li>赤ならば全店舗より高いです。</li>
+		</ul>
+	</li>
+	<li>判定の見方　一覧表
+		<ul>
+			<li>緑ならばそのマスの店舗より安いです</li>
+			<li>赤ならばそのマスの店舗より高いです。</li>
+		</ul>
+	</li>
+	<li>商品の削除方法
+		<ul>
+			<li>このページの選択ボックスから削除したい商品を選択して下さい</li>
+			<li>「削除」ボタンを押すと削除されます。</li>
+	</li>
+</ul>
+</div>
 </body>
 </html>
